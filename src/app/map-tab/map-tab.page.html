@@ -13,5 +13,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Map page"></app-explore-container>
+  <agm-map
+    [latitude]="latitude"
+    [longitude]="longitude"
+    [zoom]="zoom"
+  ></agm-map>
 </ion-content>

@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map-tab.page.scss'],
 })
 export class MapTabPage implements OnInit {
+  latitude = 51.447359;
+  longitude = -0.336917;
+  zoom = 12;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
