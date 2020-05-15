@@ -15,11 +15,13 @@ export class MapTabPage implements OnInit {
       latitude: 51.447359,
       longitude: -0.336917,
       label: 'A',
+      info: '5 Albert Road',
     },
     {
       latitude: 51.457359,
       longitude: -0.346917,
       label: 'B',
+      info: 'Isleworth',
     },
   ];
 

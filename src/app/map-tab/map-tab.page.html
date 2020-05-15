@@ -13,7 +13,9 @@
       [label]="marker.label"
       [latitude]="marker.latitude"
       [longitude]="marker.longitude"
-    >
-    </agm-marker
-  ></agm-map>
+      ><agm-info-window>
+        {{ marker.info }}
+      </agm-info-window>
+    </agm-marker></agm-map
+  >
 </ion-content>
