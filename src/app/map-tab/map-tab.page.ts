@@ -35,4 +35,8 @@ export class MapTabPage implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  addClicked() {
+    console.log('add clicked');
+  }
 }
