@@ -9,7 +9,7 @@ import { Incident } from 'src/app/models/incident';
   providedIn: 'root',
 })
 export class FirestoreService {
-  incidentListPath = 'incidentList';
+  incidentListPath = 'incidents';
   incidentCollection: AngularFirestoreCollection<Incident>;
 
   constructor(public firestore: AngularFirestore) {
@@ -20,7 +20,7 @@ export class FirestoreService {
 
   async createIncident(incident: Incident) {
     const id = this.firestore.createId();
-    return await this.incidentCollection.doc(id).set({ id, ...incident });
+    return await this.incidentCollection.doc(id).set(incident);
   }
 
   getAllIncidents() {

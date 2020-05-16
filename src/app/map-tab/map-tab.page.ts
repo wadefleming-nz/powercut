@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MapMarker } from '../models/map-marker';
 import { LatLngLiteral } from '@agm/core';
 import * as _ from 'lodash';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-map-tab',
@@ -39,6 +40,8 @@ export class MapTabPage {
     return this.addMarkerMode ? 'crosshair' : '';
   }
 
+  constructor(private fireStoreService: FirestoreService) {}
+
   addClicked() {
     this.addMarkerMode = !this.addMarkerMode;
   }
@@ -50,12 +53,18 @@ export class MapTabPage {
     }
   }
 
-  addMarker(latitude: number, longitude: number) {
+  async addMarker(latitude: number, longitude: number) {
     this.markers.push({
       latitude,
       longitude,
       label: this.getNextLabelLetter(),
       info: 'test',
+    });
+
+    await this.fireStoreService.createIncident({
+      latitude,
+      longitude,
+      reportedAt: new Date(),
     });
   }
 
