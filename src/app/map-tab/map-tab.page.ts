@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MapMarker } from '../models/map-marker';
+import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'app-map-tab',
@@ -41,7 +42,7 @@ export class MapTabPage {
     this.addMarkerMode = !this.addMarkerMode;
   }
 
-  mapClicked(event: any) {
+  mapClicked(event: { coords: LatLngLiteral }) {
     if (this.addMarkerMode) {
       this.addMarker(event.coords.lat, event.coords.lng);
       this.addMarkerMode = false;
