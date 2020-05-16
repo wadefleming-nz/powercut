@@ -41,10 +41,14 @@ export class MapTabPage {
     this.addMarkerMode = !this.addMarkerMode;
   }
 
-  mapClicked(event: MouseEvent) {
+  mapClicked(event: any) {
     if (this.addMarkerMode) {
-      console.log(event);
+      this.addMarker(event.coords.lat, event.coords.lng);
+      this.addMarkerMode = false;
     }
-    this.addMarkerMode = false;
+  }
+
+  addMarker(latitude: number, longitude: number) {
+    this.markers.push({ latitude, longitude, label: 'X', info: 'test' });
   }
 }
