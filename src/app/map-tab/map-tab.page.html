@@ -7,7 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"
+  <agm-map
+    [latitude]="latitude"
+    [longitude]="longitude"
+    [zoom]="zoom"
+    [streetViewControl]="false"
     ><agm-marker
       *ngFor="let marker of markers"
       [label]="marker.label"
