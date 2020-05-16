@@ -16,10 +16,9 @@
     [draggableCursor]="draggableCursor"
     (mapClick)="mapClicked($event)"
     ><agm-marker
-      *ngFor="let marker of markers"
-      [label]="marker.label"
-      [latitude]="marker.latitude"
-      [longitude]="marker.longitude"
+      *ngFor="let incident of incidents$ | async"
+      [latitude]="incident.latitude"
+      [longitude]="incident.longitude"
       ><agm-snazzy-info-window
         [maxWidth]="100"
         [shadow]="true"
@@ -33,7 +32,9 @@
         [panOnOpen]="true"
         [closeWhenOthersOpen]="true"
         [closeOnMapClick]="true"
-        ><ng-template>{{ marker.info }}</ng-template></agm-snazzy-info-window
+        ><ng-template
+          >{{ incident.reportedAt }}</ng-template
+        ></agm-snazzy-info-window
       >
     </agm-marker></agm-map
   ><ion-fab vertical="top" horizontal="end" slot="fixed">
