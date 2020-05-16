@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MapMarker } from '../models/map-marker';
 
 @Component({
@@ -6,10 +6,11 @@ import { MapMarker } from '../models/map-marker';
   templateUrl: './map-tab.page.html',
   styleUrls: ['./map-tab.page.scss'],
 })
-export class MapTabPage implements OnInit {
+export class MapTabPage {
   latitude = 51.447359;
   longitude = -0.336917;
   zoom = 12;
+  addMarkerMode = false;
 
   markers: MapMarker[] = [
     {
@@ -32,11 +33,18 @@ export class MapTabPage implements OnInit {
     },
   ];
 
-  constructor() {}
-
-  ngOnInit() {}
+  get draggableCursor() {
+    return this.addMarkerMode ? 'crosshair' : '';
+  }
 
   addClicked() {
-    console.log('add clicked');
+    this.addMarkerMode = !this.addMarkerMode;
+  }
+
+  mapClicked(event: MouseEvent) {
+    if (this.addMarkerMode) {
+      console.log(event);
+    }
+    this.addMarkerMode = false;
   }
 }
