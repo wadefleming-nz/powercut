@@ -38,7 +38,8 @@
     </agm-marker></agm-map
   ><ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button color="secondary" (click)="addClicked()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon *ngIf="!addMarkerMode" name="add"></ion-icon>
+      <ion-icon *ngIf="addMarkerMode" src="/assets/waiting.svg"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>
