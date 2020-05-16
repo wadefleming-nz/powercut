@@ -9,12 +9,12 @@ import { Incident } from 'src/app/models/incident';
   providedIn: 'root',
 })
 export class FirestoreService {
-  incidentListPath = 'incidents';
+  incidentsPath = 'incidents';
   incidentCollection: AngularFirestoreCollection<Incident>;
 
   constructor(public firestore: AngularFirestore) {
     this.incidentCollection = this.firestore.collection<Incident>(
-      this.incidentListPath
+      this.incidentsPath
     );
   }
 
