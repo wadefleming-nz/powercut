@@ -7,47 +7,49 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <agm-map
-    [latitude]="latitude"
-    [longitude]="longitude"
-    [zoom]="zoom"
-    [streetViewControl]="false"
-    [clickableIcons]="false"
-    [draggableCursor]="draggableCursor"
-    (mapClick)="mapClicked($event)"
-    ><agm-marker
-      *ngFor="let incident of incidents$ | async"
-      [latitude]="incident.latitude"
-      [longitude]="incident.longitude"
-      ><agm-snazzy-info-window
-        [maxWidth]="100"
-        [shadow]="true"
-        padding="12px"
-        backgroundColor="#fff"
-        fontSize="12px"
-        fontColor="#757575"
-        wrapperClass="marker-info"
-        [showCloseButton]="false"
-        [isOpen]="false"
-        [panOnOpen]="true"
-        [closeWhenOthersOpen]="true"
-        [closeOnMapClick]="true"
-        ><ng-template
-          >{{ incident.reportedAt }}</ng-template
-        ></agm-snazzy-info-window
+  <ng-container *ngIf="incidents$ | async as incidents">
+    <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="zoom"
+      [streetViewControl]="false"
+      [clickableIcons]="false"
+      [draggableCursor]="draggableCursor"
+      (mapClick)="mapClicked($event)"
+      ><agm-marker
+        *ngFor="let incident of incidents"
+        [latitude]="incident.latitude"
+        [longitude]="incident.longitude"
+        ><agm-snazzy-info-window
+          [maxWidth]="100"
+          [shadow]="true"
+          padding="12px"
+          backgroundColor="#fff"
+          fontSize="12px"
+          fontColor="#757575"
+          wrapperClass="marker-info"
+          [showCloseButton]="false"
+          [isOpen]="false"
+          [panOnOpen]="true"
+          [closeWhenOthersOpen]="true"
+          [closeOnMapClick]="true"
+          ><ng-template
+            >{{ incident.reportedAt }}</ng-template
+          ></agm-snazzy-info-window
+        >
+      </agm-marker></agm-map
+    ><ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button color="secondary" (click)="addClicked()">
+        <ion-icon *ngIf="!addMarkerMode" name="add"></ion-icon>
+        <ion-icon *ngIf="addMarkerMode" src="/assets/waiting.svg"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button
+        color="danger"
+        class="ion-margin-top"
+        (click)="deleteClicked(incidents)"
       >
-    </agm-marker></agm-map
-  ><ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button color="secondary" (click)="addClicked()">
-      <ion-icon *ngIf="!addMarkerMode" name="add"></ion-icon>
-      <ion-icon *ngIf="addMarkerMode" src="/assets/waiting.svg"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button
-      color="danger"
-      class="ion-margin-top"
-      (click)="deleteClicked()"
-    >
-      <ion-icon name="trash-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ng-container>
 </ion-content>

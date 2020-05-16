@@ -18,9 +18,9 @@ export class FirestoreService {
     );
   }
 
-  async createIncident(incident: Incident) {
+  async createIncident(incident: Omit<Incident, 'id'>) {
     const id = this.firestore.createId();
-    return await this.incidentCollection.doc(id).set(incident);
+    return await this.incidentCollection.doc(id).set({ id, ...incident });
   }
 
   getAllIncidents() {

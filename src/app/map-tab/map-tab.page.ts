@@ -29,7 +29,12 @@ export class MapTabPage {
     this.addMarkerMode = !this.addMarkerMode;
   }
 
-  deleteClicked() {}
+  async deleteClicked(incidents: Incident[]) {
+    const deletions = incidents.map((incident) =>
+      this.fireStoreService.deleteIncident(incident.id)
+    );
+    await Promise.all(deletions);
+  }
 
   mapClicked(event: { coords: LatLngLiteral }) {
     if (this.addMarkerMode) {
