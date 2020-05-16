@@ -6,6 +6,7 @@ import { MapTabPage } from './map-tab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { MapTabPageRoutingModule } from './map-tab-routing.module';
 import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { environment } from './../../environments/environment';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { environment } from './../../environments/environment';
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
     }),
+    AgmSnazzyInfoWindowModule,
   ],
   declarations: [MapTabPage],
 })

@@ -13,9 +13,21 @@
       [label]="marker.label"
       [latitude]="marker.latitude"
       [longitude]="marker.longitude"
-      ><agm-info-window>
-        {{ marker.info }}
-      </agm-info-window>
+      ><agm-snazzy-info-window
+        [maxWidth]="100"
+        [shadow]="true"
+        padding="12px"
+        backgroundColor="#fff"
+        fontSize="12px"
+        fontColor="#757575"
+        wrapperClass="customClass"
+        [showCloseButton]="true"
+        [isOpen]="false"
+        [panOnOpen]="true"
+        [closeWhenOthersOpen]="true"
+        [closeOnMapClick]="true"
+        ><ng-template>{{ marker.info }}</ng-template></agm-snazzy-info-window
+      >
     </agm-marker></agm-map
   >
 </ion-content>
