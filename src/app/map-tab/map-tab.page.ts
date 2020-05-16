@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MapMarker } from '../models/map-marker';
 import { LatLngLiteral } from '@agm/core';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-map-tab',
@@ -50,6 +51,22 @@ export class MapTabPage {
   }
 
   addMarker(latitude: number, longitude: number) {
-    this.markers.push({ latitude, longitude, label: 'X', info: 'test' });
+    this.markers.push({
+      latitude,
+      longitude,
+      label: this.getNextLabelLetter(),
+      info: 'test',
+    });
+  }
+
+  getNextLabelLetter() {
+    const lastLetter = _.last(this.markers)?.label;
+    const nextLetter =
+      !lastLetter || lastLetter === 'Z' ? 'A' : this.nextLetter(lastLetter);
+    return nextLetter;
+  }
+
+  nextLetter(letter: string) {
+    return String.fromCharCode(letter.charCodeAt(0) + 1);
   }
 }
