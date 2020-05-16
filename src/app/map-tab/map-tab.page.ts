@@ -13,7 +13,7 @@ export class MapTabPage implements OnInit {
 
   markers: MapMarker[] = [
     {
-      latitude: 51.447359,
+      latitude: 51.447468,
       longitude: -0.336917,
       label: 'A',
       info: '5 Albert Road',
@@ -23,6 +23,12 @@ export class MapTabPage implements OnInit {
       longitude: -0.346917,
       label: 'B',
       info: 'Isleworth',
+    },
+    {
+      latitude: 51.444359,
+      longitude: -0.356917,
+      label: 'C',
+      info: 'Chertsey Road',
     },
   ];
 
