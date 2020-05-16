@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MapMarker } from '../models/map-marker';
 
 @Component({
   selector: 'app-map-tab',
