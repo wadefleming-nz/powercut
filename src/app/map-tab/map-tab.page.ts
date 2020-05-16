@@ -29,6 +29,8 @@ export class MapTabPage {
     this.addMarkerMode = !this.addMarkerMode;
   }
 
+  deleteClicked() {}
+
   mapClicked(event: { coords: LatLngLiteral }) {
     if (this.addMarkerMode) {
       this.addMarker(event.coords.lat, event.coords.lng);
