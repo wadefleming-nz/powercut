@@ -24,6 +24,10 @@ export class MapTabPage {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
 
+  trackByIncidentId(_: number, incident: Incident) {
+    return incident.id;
+  }
+
   addClicked() {
     this.addingIncident = !this.addingIncident;
   }
