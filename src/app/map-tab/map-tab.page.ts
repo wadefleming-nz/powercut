@@ -4,6 +4,7 @@ import { FirestoreService } from '../services/firestore.service';
 import { Observable } from 'rxjs';
 import { Incident } from '../models/incident';
 import * as firebase from 'firebase/app';
+import { GeolocationService } from '../services/geolocation.service';
 
 @Component({
   selector: 'app-map-tab',
@@ -21,7 +22,14 @@ export class MapTabPage {
     return this.addingIncident ? 'crosshair' : '';
   }
 
-  constructor(private fireStoreService: FirestoreService) {
+  get geolocationAvailable() {
+    return this.geolocationService.geolocationAvailable();
+  }
+
+  constructor(
+    private fireStoreService: FirestoreService,
+    protected geolocationService: GeolocationService
+  ) {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
 
@@ -57,5 +65,12 @@ export class MapTabPage {
       longitude,
       reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
+  }
+
+  async geolocationClicked() {
+    if (this.geolocationService.geolocationAvailable()) {
+      const coords = await this.geolocationService.getUserLocation();
+      console.log(coords);
+    }
   }
 }

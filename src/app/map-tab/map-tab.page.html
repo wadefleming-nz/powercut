@@ -50,6 +50,14 @@
       >
         <ion-icon name="trash-outline"></ion-icon>
       </ion-fab-button>
+      <ion-fab-button
+        *ngIf="geolocationAvailable"
+        color="light"
+        class="ion-margin-top"
+        (click)="geolocationClicked()"
+      >
+        <ion-icon name="navigate-outline"></ion-icon>
+      </ion-fab-button>
     </ion-fab>
   </ng-container>
 </ion-content>
