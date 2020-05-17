@@ -100,4 +100,6 @@ export class MapTabPage {
     }
     this.changeDetector.detectChanges();
   }
+
+  submitIncident() {}
 }
