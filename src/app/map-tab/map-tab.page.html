@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <ng-container *ngIf="incidents$ | async as incidents">
     <agm-map
       [latitude]="latitude"
@@ -14,9 +14,8 @@
       [zoom]="zoom"
       [streetViewControl]="false"
       [clickableIcons]="false"
-      [draggableCursor]="draggableCursor"
       [usePanning]="true"
-      (mapClick)="mapClicked($event)"
+      (centerChange)="centerChanged($event)"
       ><agm-marker
         *ngFor="let incident of incidents; trackBy: trackByIncidentId"
         [latitude]="incident.latitude"
@@ -42,8 +41,7 @@
     ><ion-icon name="add-outline" class="center-indicator map-center"></ion-icon
     ><ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button color="secondary" (click)="addClicked()">
-        <ion-icon *ngIf="!addingIncident" name="add"></ion-icon>
-        <ion-icon *ngIf="addingIncident" src="/assets/waiting.svg"></ion-icon>
+        <ion-icon name="add"></ion-icon>
       </ion-fab-button>
       <ion-fab-button
         color="danger"

@@ -1,10 +1,10 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { LatLngLiteral } from '@agm/core';
 import { FirestoreService } from '../services/firestore.service';
 import { Observable } from 'rxjs';
 import { Incident } from '../models/incident';
 import * as firebase from 'firebase/app';
 import { GeolocationService } from '../services/geolocation.service';
+import { LatLngLiteral } from '@agm/core';
 
 @Component({
   selector: 'app-map-tab',
@@ -15,16 +15,14 @@ export class MapTabPage {
   latitude = 51.447359;
   longitude = -0.336917;
 
+  centerLatitude = this.latitude;
+  centerLongitude = this.longitude;
+
   initialZoom = 12;
   geolocateZoom = 20;
   zoom = this.initialZoom;
 
-  addingIncident = false;
   incidents$: Observable<Incident[]>;
-
-  get draggableCursor() {
-    return this.addingIncident ? 'crosshair' : '';
-  }
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
@@ -38,16 +36,21 @@ export class MapTabPage {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
 
+  centerChanged(coords: LatLngLiteral) {
+    this.centerLatitude = coords.lat;
+    this.centerLongitude = coords.lng;
+  }
+
   trackByIncidentId(_: number, incident: Incident) {
     return incident.id;
   }
 
-  addClicked() {
-    this.addingIncident = !this.addingIncident;
+  async addClicked() {
+    await this.addIncident();
   }
 
   async deleteClicked(incidents: Incident[]) {
-    this.deleteAllIncidents(incidents);
+    await this.deleteAllIncidents(incidents);
   }
 
   async deleteAllIncidents(incidents: Incident[]) {
@@ -57,17 +60,10 @@ export class MapTabPage {
     await Promise.all(deletions);
   }
 
-  mapClicked(event: { coords: LatLngLiteral }) {
-    if (this.addingIncident) {
-      this.addIncident(event.coords.lat, event.coords.lng);
-      this.addingIncident = false;
-    }
-  }
-
-  async addIncident(latitude: number, longitude: number) {
+  async addIncident() {
     await this.fireStoreService.createIncident({
-      latitude,
-      longitude,
+      latitude: this.centerLatitude,
+      longitude: this.centerLongitude,
       reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
   }
