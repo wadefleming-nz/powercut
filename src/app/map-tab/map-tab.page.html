@@ -38,7 +38,11 @@
           ></agm-snazzy-info-window
         >
       </agm-marker></agm-map
-    ><ion-icon name="add-outline" class="center-indicator map-center"></ion-icon
+    ><ion-icon
+      *ngIf="centerIndicatorVisible"
+      name="add-outline"
+      class="center-indicator map-center"
+    ></ion-icon
     ><ion-fab vertical="top" horizontal="end" slot="fixed">
       <ion-fab-button color="secondary" (click)="addClicked()">
         <ion-icon name="add"></ion-icon>

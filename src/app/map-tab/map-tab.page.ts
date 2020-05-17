@@ -22,6 +22,8 @@ export class MapTabPage {
   geolocateZoom = 20;
   zoom = this.initialZoom;
 
+  centerIndicatorVisible = true;
+
   incidents$: Observable<Incident[]>;
 
   get geolocationAvailable() {
@@ -39,6 +41,8 @@ export class MapTabPage {
   centerChanged(coords: LatLngLiteral) {
     this.centerLatitude = coords.lat;
     this.centerLongitude = coords.lng;
+
+    this.centerIndicatorVisible = true;
   }
 
   trackByIncidentId(_: number, incident: Incident) {
@@ -61,6 +65,8 @@ export class MapTabPage {
   }
 
   async addIncident() {
+    this.centerIndicatorVisible = false;
+
     await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
       longitude: this.centerLongitude,
