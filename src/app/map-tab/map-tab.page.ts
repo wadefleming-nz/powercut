@@ -75,6 +75,7 @@ export class MapTabPage {
 
   async addIncident() {
     this.centerIndicatorVisible = false;
+    this.activeIncident = null;
 
     await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
