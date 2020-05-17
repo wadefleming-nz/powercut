@@ -17,6 +17,7 @@
         [clickableIcons]="false"
         [usePanning]="true"
         (centerChange)="centerChanged($event)"
+        (mapClick)="mapClicked()"
         ><agm-marker
           *ngFor="let incident of incidents; trackBy: trackByIncidentId"
           [latitude]="incident.latitude"
@@ -51,22 +52,12 @@
       </ion-fab>
     </div>
     <div class="incident-container">
-      <ion-card>
-        <ion-card-header>
-          Header
-        </ion-card-header>
-
+      <ion-card *ngIf="activeIncident">
         <ion-card-content>
-          <form (ngSubmit)="submitIncident()">
-            <ion-item>
-              <ion-label stacked>Some Label</ion-label>
-              <ion-input
-                name="some-input"
-                type="text"
-                value="some-value"
-              ></ion-input>
-            </ion-item>
-          </form>
+          <ion-item lines="none">
+            <ion-label position="stacked">Reported at</ion-label>
+            {{ activeIncident.reportedAt.toDate() | date:'medium'}}
+          </ion-item>
         </ion-card-content>
       </ion-card>
     </div>

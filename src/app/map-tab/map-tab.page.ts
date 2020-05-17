@@ -25,6 +25,7 @@ export class MapTabPage {
   centerIndicatorVisible = true;
 
   incidents$: Observable<Incident[]>;
+  activeIncident: Incident = null;
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
@@ -49,12 +50,20 @@ export class MapTabPage {
     return incident.id;
   }
 
+  mapClicked() {
+    this.activeIncident = null;
+  }
+
   async addClicked() {
     await this.addIncident();
   }
 
   async deleteClicked(incidents: Incident[]) {
     await this.deleteAllIncidents(incidents);
+  }
+
+  incidentClicked(incident: Incident) {
+    this.activeIncident = incident;
   }
 
   async deleteAllIncidents(incidents: Incident[]) {
@@ -100,6 +109,4 @@ export class MapTabPage {
     }
     this.changeDetector.detectChanges();
   }
-
-  submitIncident() {}
 }
