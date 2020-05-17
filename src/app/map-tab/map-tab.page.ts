@@ -3,6 +3,7 @@ import { LatLngLiteral } from '@agm/core';
 import { FirestoreService } from '../services/firestore.service';
 import { Observable } from 'rxjs';
 import { Incident } from '../models/incident';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-map-tab',
@@ -54,7 +55,7 @@ export class MapTabPage {
     await this.fireStoreService.createIncident({
       latitude,
       longitude,
-      reportedAt: new Date(),
+      reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
   }
 }

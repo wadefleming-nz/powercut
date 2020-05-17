@@ -34,7 +34,7 @@
           [closeWhenOthersOpen]="true"
           [closeOnMapClick]="true"
           ><ng-template
-            >{{ incident.reportedAt }}</ng-template
+            >{{ incident.reportedAt.toDate() | date:'medium' }}</ng-template
           ></agm-snazzy-info-window
         >
       </agm-marker></agm-map
