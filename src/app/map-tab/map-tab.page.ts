@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
 import { FirestoreService } from '../services/firestore.service';
 import { Observable } from 'rxjs';
@@ -14,7 +14,11 @@ import { GeolocationService } from '../services/geolocation.service';
 export class MapTabPage {
   latitude = 51.447359;
   longitude = -0.336917;
-  zoom = 12;
+
+  initialZoom = 12;
+  geolocateZoom = 20;
+  zoom = this.initialZoom;
+
   addingIncident = false;
   incidents$: Observable<Incident[]>;
 
@@ -28,7 +32,8 @@ export class MapTabPage {
 
   constructor(
     private fireStoreService: FirestoreService,
-    protected geolocationService: GeolocationService
+    protected geolocationService: GeolocationService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
@@ -70,7 +75,27 @@ export class MapTabPage {
   async geolocationClicked() {
     if (this.geolocationService.geolocationAvailable()) {
       const coords = await this.geolocationService.getUserLocation();
-      console.log(coords);
+      this.animateTo(coords, this.geolocateZoom);
     }
+  }
+
+  animateTo(coords: { latitude: number; longitude: number }, zoom?: number) {
+    this.hackToFixAnimation(zoom);
+
+    this.latitude = coords.latitude;
+    this.longitude = coords.longitude;
+    if (zoom) {
+      this.zoom = zoom;
+    }
+  }
+
+  // https://github.com/SebastianM/angular-google-maps/issues/1026#issuecomment-569965653
+  hackToFixAnimation(zoom?: number) {
+    this.latitude = 0;
+    this.longitude = 0;
+    if (zoom) {
+      this.zoom = 0;
+    }
+    this.changeDetector.detectChanges();
   }
 }
