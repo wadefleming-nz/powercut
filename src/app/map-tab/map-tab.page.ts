@@ -62,7 +62,7 @@ export class MapTabPage {
   }
 
   mapClicked() {
-    this.activeIncidentIdSubject.next(null);
+    this.clearActiveIncident();
   }
 
   async addClicked() {
@@ -70,11 +70,16 @@ export class MapTabPage {
   }
 
   async deleteClicked(incidents: Incident[]) {
+    this.clearActiveIncident();
     await this.deleteAllIncidents(incidents);
   }
 
   incidentClicked(incident: Incident) {
     this.activeIncidentIdSubject.next(incident.id);
+  }
+
+  clearActiveIncident() {
+    this.activeIncidentIdSubject.next(null);
   }
 
   async deleteAllIncidents(incidents: Incident[]) {
