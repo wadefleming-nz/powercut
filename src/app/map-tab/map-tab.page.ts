@@ -39,6 +39,9 @@ export class MapTabPage {
     )
   );
 
+  addingIncidentSubject = new BehaviorSubject<boolean>(false);
+  addingIncident$ = this.addingIncidentSubject.asObservable();
+
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
   }
@@ -101,6 +104,8 @@ export class MapTabPage {
 
   async addIncident() {
     this.centerIndicatorVisible = false;
+    this.clearActiveIncident();
+    this.addingIncidentSubject.next(true);
 
     const id = await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
@@ -108,6 +113,7 @@ export class MapTabPage {
       reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
 
+    this.addingIncidentSubject.next(false);
     this.activeIncidentIdSubject.next(id);
   }
 
