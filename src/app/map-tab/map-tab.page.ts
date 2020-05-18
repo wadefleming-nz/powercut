@@ -1,10 +1,12 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { FirestoreService } from '../services/firestore.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Incident } from '../models/incident';
 import * as firebase from 'firebase/app';
 import { GeolocationService } from '../services/geolocation.service';
 import { LatLngLiteral, ControlPosition } from '@agm/core';
+import { switchMap, map } from 'rxjs/operators';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-map-tab',
@@ -25,8 +27,16 @@ export class MapTabPage {
 
   centerIndicatorVisible = true;
 
-  incidents$: Observable<Incident[]>;
-  activeIncident: Incident = null;
+  incidents$ = new Observable<Incident[]>();
+
+  activeIncidentIdSubject = new BehaviorSubject<string>(null);
+  activeIncident$ = this.activeIncidentIdSubject.pipe(
+    switchMap((id) =>
+      this.incidents$.pipe(
+        map((incidents) => incidents.find((i) => i.id === id))
+      )
+    )
+  );
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
@@ -52,7 +62,7 @@ export class MapTabPage {
   }
 
   mapClicked() {
-    this.activeIncident = null;
+    this.activeIncidentIdSubject.next(null);
   }
 
   async addClicked() {
@@ -64,7 +74,7 @@ export class MapTabPage {
   }
 
   incidentClicked(incident: Incident) {
-    this.activeIncident = incident;
+    this.activeIncidentIdSubject.next(incident.id);
   }
 
   async deleteAllIncidents(incidents: Incident[]) {
@@ -76,13 +86,14 @@ export class MapTabPage {
 
   async addIncident() {
     this.centerIndicatorVisible = false;
-    this.activeIncident = null;
 
-    await this.fireStoreService.createIncident({
+    const id = await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
       longitude: this.centerLongitude,
       reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
+
+    this.activeIncidentIdSubject.next(id);
   }
 
   async geolocationClicked() {

@@ -53,7 +53,7 @@
       </ion-fab>
     </div>
     <div class="incident-container">
-      <ion-card *ngIf="activeIncident">
+      <ion-card *ngIf="activeIncident$ | async as activeIncident">
         <ion-card-content>
           <ion-item lines="none">
             <ion-label position="stacked">Reported at</ion-label>

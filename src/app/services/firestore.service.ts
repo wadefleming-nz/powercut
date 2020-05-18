@@ -20,7 +20,8 @@ export class FirestoreService {
 
   async createIncident(incident: Omit<Incident, 'id'>) {
     const id = this.firestore.createId();
-    return await this.incidentCollection.doc(id).set({ id, ...incident });
+    await this.incidentCollection.doc(id).set({ id, ...incident });
+    return id;
   }
 
   getAllIncidents() {
