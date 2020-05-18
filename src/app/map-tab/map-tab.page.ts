@@ -26,6 +26,7 @@ export class MapTabPage {
   zoomControlOptions = { position: ControlPosition.LEFT_TOP };
 
   centerIndicatorVisible = true;
+  centerIndicatorRedisplayDelay = 250;
 
   incidents$ = new Observable<Incident[]>();
 
@@ -54,7 +55,16 @@ export class MapTabPage {
     this.centerLatitude = coords.lat;
     this.centerLongitude = coords.lng;
 
-    this.centerIndicatorVisible = true;
+    this.redisplayCenterIndicator();
+  }
+
+  redisplayCenterIndicator() {
+    if (!this.centerIndicatorVisible) {
+      setTimeout(
+        () => (this.centerIndicatorVisible = true),
+        this.centerIndicatorRedisplayDelay
+      );
+    }
   }
 
   trackByIncidentId(_: number, incident: Incident) {
