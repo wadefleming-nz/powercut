@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Incident } from '../models/incident';
 import * as firebase from 'firebase/app';
 import { GeolocationService } from '../services/geolocation.service';
-import { LatLngLiteral } from '@agm/core';
+import { LatLngLiteral, ControlPosition } from '@agm/core';
 
 @Component({
   selector: 'app-map-tab',
@@ -21,6 +21,7 @@ export class MapTabPage {
   initialZoom = 12;
   geolocateZoom = 20;
   zoom = this.initialZoom;
+  zoomControlOptions = { position: ControlPosition.LEFT_TOP };
 
   centerIndicatorVisible = true;
 
