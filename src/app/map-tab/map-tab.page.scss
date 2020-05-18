@@ -5,12 +5,14 @@
 }
 
 .incident-container {
+  width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
 .map-container {
+  width: 100%;
   height: 100%;
 }
 
@@ -30,4 +32,9 @@ agm-map {
   font-size: 64px;
   color: darkslategrey;
   pointer-events: none;
+}
+
+ion-card {
+  width: 94%;
+  margin: 3%;
 }
