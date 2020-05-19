@@ -63,7 +63,10 @@
         <ion-footer class="button-border-top"
           ><ion-row class="ion-text-center">
             <ion-col size="6" class="ion-padding"
-              ><ion-button fill="clear" class="card-footer-button"
+              ><ion-button
+                fill="clear"
+                class="card-footer-button"
+                (click)="addPopupCancelClicked()"
                 >Cancel</ion-button
               ></ion-col
             ><ion-col size="6" class="ion-padding button-border-left"
@@ -72,6 +75,7 @@
                 strong="true"
                 type="submit"
                 class="card-footer-button"
+                (click)="addPopupAddClicked()"
                 >Add</ion-button
               ></ion-col
             ></ion-row

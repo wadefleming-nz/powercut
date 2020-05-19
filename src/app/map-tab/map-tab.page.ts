@@ -91,6 +91,22 @@ export class MapTabPage {
     this.activeIncidentIdSubject.next(incident.id);
   }
 
+  async addPopupAddClicked() {
+    const id = await this.fireStoreService.createIncident({
+      latitude: this.centerLatitude,
+      longitude: this.centerLongitude,
+      reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
+    });
+
+    this.addingIncidentSubject.next(false);
+    this.activeIncidentIdSubject.next(id);
+    this.centerIndicatorVisible = false;
+  }
+
+  addPopupCancelClicked() {
+    this.addingIncidentSubject.next(false);
+  }
+
   clearActiveIncident() {
     this.activeIncidentIdSubject.next(null);
   }
@@ -103,18 +119,8 @@ export class MapTabPage {
   }
 
   async addIncident() {
-    this.centerIndicatorVisible = false;
     this.clearActiveIncident();
     this.addingIncidentSubject.next(true);
-
-    const id = await this.fireStoreService.createIncident({
-      latitude: this.centerLatitude,
-      longitude: this.centerLongitude,
-      reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
-    });
-
-    this.addingIncidentSubject.next(false);
-    this.activeIncidentIdSubject.next(id);
   }
 
   async geolocationClicked() {
