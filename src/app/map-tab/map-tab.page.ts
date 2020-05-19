@@ -39,11 +39,15 @@ export class MapTabPage {
     )
   );
 
-  addingIncidentSubject = new BehaviorSubject<boolean>(false);
-  addingIncident$ = this.addingIncidentSubject.asObservable();
+  showAddIncidentPopupSubject = new BehaviorSubject<boolean>(false);
+  showAddIncidentPopup$ = this.showAddIncidentPopupSubject.asObservable();
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
+  }
+
+  set activeIncidentId(id: string) {
+    this.activeIncidentIdSubject.next(id);
   }
 
   constructor(
@@ -83,12 +87,19 @@ export class MapTabPage {
   }
 
   async deleteClicked(incidents: Incident[]) {
-    this.clearActiveIncident();
     await this.deleteAllIncidents(incidents);
   }
 
   incidentClicked(incident: Incident) {
-    this.activeIncidentIdSubject.next(incident.id);
+    this.activeIncidentId = incident.id;
+  }
+
+  showAddIncidentPopup() {
+    this.showAddIncidentPopupSubject.next(true);
+  }
+
+  hideAddIncidentPopup() {
+    this.showAddIncidentPopupSubject.next(false);
   }
 
   async addPopupAddClicked() {
@@ -98,20 +109,22 @@ export class MapTabPage {
       reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
     });
 
-    this.addingIncidentSubject.next(false);
-    this.activeIncidentIdSubject.next(id);
+    this.hideAddIncidentPopup();
+    this.activeIncidentId = id;
     this.centerIndicatorVisible = false;
   }
 
   addPopupCancelClicked() {
-    this.addingIncidentSubject.next(false);
+    this.hideAddIncidentPopup();
   }
 
   clearActiveIncident() {
-    this.activeIncidentIdSubject.next(null);
+    this.activeIncidentId = null;
   }
 
   async deleteAllIncidents(incidents: Incident[]) {
+    this.clearActiveIncident();
+
     const deletions = incidents.map((incident) =>
       this.fireStoreService.deleteIncident(incident.id)
     );
@@ -120,7 +133,7 @@ export class MapTabPage {
 
   async addIncident() {
     this.clearActiveIncident();
-    this.addingIncidentSubject.next(true);
+    this.showAddIncidentPopup();
   }
 
   async geolocationClicked() {
