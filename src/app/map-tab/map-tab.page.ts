@@ -40,7 +40,9 @@ export class MapTabPage {
   );
 
   showAddIncidentPopupSubject = new BehaviorSubject<boolean>(false);
-  showAddIncidentPopup$ = this.showAddIncidentPopupSubject.asObservable();
+  showAddIncidentPopup$ = this.showAddIncidentPopupSubject.pipe(
+    map((showPopup) => (showPopup ? 'true' : 'false')) // use non-falsy strings for compatibility with *ngIf async
+  );
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
