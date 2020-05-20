@@ -121,6 +121,14 @@ export class MapTabPage {
     this.hideAddIncidentPopup();
   }
 
+  async activePopupDeleteClicked(id: string) {
+    await this.fireStoreService.deleteIncident(id);
+  }
+
+  activePopupCloseClicked() {
+    this.clearActiveIncident();
+  }
+
   clearActiveIncident() {
     this.activeIncidentId = null;
   }
