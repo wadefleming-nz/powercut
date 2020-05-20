@@ -8,6 +8,7 @@ import { MapTabPageRoutingModule } from './map-tab-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { environment } from './../../environments/environment';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { environment } from './../../environments/environment';
       apiKey: environment.googleApiKey,
     }),
     AgmSnazzyInfoWindowModule,
+    SharedModule,
   ],
   declarations: [MapTabPage],
 })

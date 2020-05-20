@@ -63,8 +63,17 @@
         <ion-card *ngIf="showAddIncidentPopup === 'true'">
           <ion-card-content>
             <ion-item lines="none">
-              <ion-label position="stacked">Reported at</ion-label>
-              add new incident
+              <ion-label>Reported at</ion-label>
+              <ion-datetime
+                displayFormat="hh:mm a"
+                [value]="newIncidentDateTime"
+              ></ion-datetime> </ion-item
+            ><ion-item lines="none">
+              <ion-label>On</ion-label>
+              <ion-datetime
+                displayFormat="DD MMM YYYY"
+                [value]="newIncidentDateTime"
+              ></ion-datetime>
             </ion-item>
           </ion-card-content>
           <ion-footer class="button-border-top"
@@ -93,7 +102,7 @@
           <ion-card-content>
             <ion-item lines="none">
               <ion-label position="stacked">Reported at</ion-label>
-              {{ activeIncident.reportedAt.toDate() | date:'medium'}}
+              {{ activeIncident.reportedAt | formatIsoDate }}
             </ion-item>
           </ion-card-content>
         </ion-card>

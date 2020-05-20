@@ -2,7 +2,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { FirestoreService } from '../services/firestore.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Incident } from '../models/incident';
-import * as firebase from 'firebase/app';
 import { GeolocationService } from '../services/geolocation.service';
 import { LatLngLiteral, ControlPosition } from '@agm/core';
 import { switchMap, map } from 'rxjs/operators';
@@ -27,6 +26,8 @@ export class MapTabPage {
 
   centerIndicatorVisible = true;
   centerIndicatorRedisplayDelay = 250;
+
+  newIncidentDateTime: string;
 
   incidents$ = new Observable<Incident[]>();
 
@@ -108,7 +109,7 @@ export class MapTabPage {
     const id = await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
       longitude: this.centerLongitude,
-      reportedAt: firebase.firestore.Timestamp.fromDate(new Date()),
+      reportedAt: this.newIncidentDateTime,
     });
 
     this.hideAddIncidentPopup();
@@ -135,6 +136,7 @@ export class MapTabPage {
 
   async addIncident() {
     this.clearActiveIncident();
+    this.newIncidentDateTime = new Date().toISOString();
     this.showAddIncidentPopup();
   }
 
