@@ -24,7 +24,6 @@
             *ngFor="let incident of incidents; trackBy: trackByIncidentId"
             [latitude]="incident.latitude"
             [longitude]="incident.longitude"
-            animation="DROP"
             [markerClickable]="showAddIncidentPopup === 'false'"
             (markerClick)="incidentClicked(incident)"
           >
