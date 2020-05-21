@@ -6,6 +6,8 @@ import { GeolocationService } from '../services/geolocation.service';
 import { LatLngLiteral, ControlPosition } from '@agm/core';
 import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { GoogleSymbol } from '@agm/core/services/google-maps-types';
+import { Point } from '../models/point';
 
 @Component({
   selector: 'app-map-tab',
@@ -26,6 +28,17 @@ export class MapTabPage {
 
   centerIndicatorVisible = true;
   centerIndicatorRedisplayDelay = 250;
+
+  lightningPath = 'M7 2v11h3v9l7-12h-4l4-8z';
+  icon: GoogleSymbol = {
+    path: this.lightningPath,
+    fillColor: '#FF0000',
+    fillOpacity: 1.0,
+    strokeColor: '#000000',
+    strokeWeight: 1,
+    scale: 2,
+    anchor: new Point(10, 22),
+  };
 
   newIncidentDateTime: string;
 
