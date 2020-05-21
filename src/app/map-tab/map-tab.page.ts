@@ -8,6 +8,7 @@ import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../models/point';
+import { CacheService } from '../services/cache.service';
 
 @Component({
   selector: 'app-map-tab',
@@ -69,7 +70,8 @@ export class MapTabPage {
   constructor(
     private fireStoreService: FirestoreService,
     protected geolocationService: GeolocationService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    protected iconCache: CacheService<GoogleSymbol>
   ) {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
@@ -92,6 +94,16 @@ export class MapTabPage {
 
   trackByIncidentId(_: number, incident: Incident) {
     return incident.id;
+  }
+
+  getIncidentIcon(incident: Incident) {
+    let icon = this.iconCache.getValue(incident.id);
+    if (!icon) {
+      icon = { ...this.icon, fillOpacity: 0.5 };
+      this.iconCache.setValue(incident.id, icon);
+    }
+
+    return icon;
   }
 
   mapClicked() {

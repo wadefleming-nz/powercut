@@ -24,7 +24,7 @@
             *ngFor="let incident of incidents; trackBy: trackByIncidentId"
             [latitude]="incident.latitude"
             [longitude]="incident.longitude"
-            [iconUrl]="icon"
+            [iconUrl]="getIncidentIcon(incident)"
             [markerClickable]="showAddIncidentPopup === 'false'"
             (markerClick)="incidentClicked(incident)"
           >
