@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../models/point';
 import { CacheService } from '../services/cache.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-map-tab',
@@ -99,11 +100,20 @@ export class MapTabPage {
   getIncidentIcon(incident: Incident) {
     let icon = this.iconCache.getValue(incident.id);
     if (!icon) {
-      icon = { ...this.icon, fillOpacity: 0.5 };
+      icon = { ...this.icon, fillOpacity: this.getOpacityBasedOnAge(incident) };
       this.iconCache.setValue(incident.id, icon);
     }
 
     return icon;
+  }
+
+  getOpacityBasedOnAge(incident: Incident) {
+    const now = moment();
+    const reportedAt = moment(incident.reportedAt);
+    const age = now.diff(reportedAt, 'minutes'); // TODO change to hours or something else
+    const normalized = this.normalize(age, 0, 60);
+    const opacity = 1 - normalized;
+    return _.round(opacity, 1);
   }
 
   mapClicked() {
