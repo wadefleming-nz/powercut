@@ -13,4 +13,14 @@ export class CacheService<T> {
   setValue(key: number | string, value: T) {
     this.values.set(key, value);
   }
+
+  getOrCreate(key: number | string, value: T) {
+    let returnValue = this.getValue(key);
+    if (!returnValue) {
+      this.setValue(key, value);
+      returnValue = value;
+    }
+
+    return returnValue;
+  }
 }
