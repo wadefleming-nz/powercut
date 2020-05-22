@@ -14,11 +14,11 @@ import { normalize } from '../../shared/utilities/normalize';
 import { Platform } from '@ionic/angular';
 
 @Component({
-  selector: 'app-map-tab',
-  templateUrl: './map-tab.page.html',
-  styleUrls: ['./map-tab.page.scss'],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class MapTabPage {
+export class HomePage {
   latitude = 51.447359;
   longitude = -0.336917;
 

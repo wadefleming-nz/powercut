@@ -5,7 +5,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/map-tab/map-tab.module').then((m) => m.MapTabPageModule),
+      import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: 'incident',
