@@ -123,13 +123,13 @@ export class HomePage {
   }
 
   getIncidentIcon(incident: IncidentViewModel) {
-    let icon = this.iconCache.getValue(incident.id);
+    let icon = this.iconCache.getValue(incident.iconLightness);
     if (!icon) {
       icon = {
         ...this.icon,
         fillColor: `hsl(0, 100%, ${incident.iconLightness}%)`,
       };
-      this.iconCache.setValue(incident.id, icon);
+      this.iconCache.setValue(incident.iconLightness, icon);
     }
 
     return icon;

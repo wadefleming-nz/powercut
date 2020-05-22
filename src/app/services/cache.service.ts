@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CacheService<T> {
-  private values = new Map<string, T>();
+  private values = new Map<number | string, T>();
 
-  getValue(key: string) {
+  getValue(key: number | string) {
     return this.values.get(key);
   }
 
-  setValue(key: string, value: T) {
+  setValue(key: number | string, value: T) {
     this.values.set(key, value);
   }
 }
