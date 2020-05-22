@@ -10,6 +10,7 @@ import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../models/point';
 import { CacheService } from '../services/cache.service';
 import * as moment from 'moment';
+import { normalize } from '../shared/utilities/normalize';
 
 @Component({
   selector: 'app-map-tab',
@@ -111,7 +112,7 @@ export class MapTabPage {
     const now = moment();
     const reportedAt = moment(incident.reportedAt);
     const age = now.diff(reportedAt, 'minutes'); // TODO change to hours or something else
-    const normalized = this.normalize(age, 0, 60);
+    const normalized = normalize(age, 0, 60);
     const opacity = 1 - normalized;
     return _.round(opacity, 1);
   }
