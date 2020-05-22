@@ -72,10 +72,10 @@ export class MapTabPage {
 
   constructor(
     private fireStoreService: FirestoreService,
-    protected geolocationService: GeolocationService,
+    private geolocationService: GeolocationService,
     private changeDetector: ChangeDetectorRef,
-    protected iconCache: CacheService<GoogleSymbol>,
-    protected platform: Platform
+    private iconCache: CacheService<GoogleSymbol>,
+    public platform: Platform
   ) {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
