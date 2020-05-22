@@ -1,16 +1,16 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { FirestoreService } from '../services/firestore.service';
+import { FirestoreService } from '../../services/firestore.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Incident } from '../models/incident';
-import { GeolocationService } from '../services/geolocation.service';
+import { Incident } from '../../models/incident';
+import { GeolocationService } from '../../services/geolocation.service';
 import { LatLngLiteral, ControlPosition } from '@agm/core';
 import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
-import { Point } from '../models/point';
-import { CacheService } from '../services/cache.service';
+import { Point } from '../../models/point';
+import { CacheService } from '../../services/cache.service';
 import * as moment from 'moment';
-import { normalize } from '../shared/utilities/normalize';
+import { normalize } from '../../shared/utilities/normalize';
 import { Platform } from '@ionic/angular';
 
 @Component({
