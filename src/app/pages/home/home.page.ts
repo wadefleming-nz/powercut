@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { Platform } from '@ionic/angular';
 import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
 import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
+import { IncidentViewModel } from 'src/app/models/incident-view-model';
 
 @Component({
   selector: 'app-home',
@@ -47,7 +48,7 @@ export class HomePage {
 
   newIncidentDateTime: string;
 
-  incidents$ = new Observable<Incident[]>();
+  incidents$ = new Observable<IncidentViewModel[]>();
 
   activeIncidentIdSubject = new BehaviorSubject<string>(null);
   activeIncident$ = this.activeIncidentIdSubject.pipe(
@@ -78,7 +79,13 @@ export class HomePage {
     private iconCache: CacheService<GoogleSymbol>,
     public platform: Platform
   ) {
-    this.incidents$ = this.fireStoreService.getAllIncidents();
+    this.incidents$ = this.fireStoreService
+      .getAllIncidents()
+      .pipe(
+        map((incidents) =>
+          _.map(incidents, (incident) => this.createIncidentViewModel(incident))
+        )
+      );
   }
 
   centerChanged(coords: LatLngLiteral) {
@@ -97,11 +104,15 @@ export class HomePage {
     }
   }
 
-  trackByIncidentId(_: number, incident: Incident) {
+  createIncidentViewModel(incident: Incident): IncidentViewModel {
+    return { ...incident, age: 0 };
+  }
+
+  trackByIncidentId(_: number, incident: IncidentViewModel) {
     return incident.id;
   }
 
-  getIncidentZIndex(incident: Incident) {
+  getIncidentZIndex(incident: IncidentViewModel) {
     const icon = this.iconCache.getValue(incident.id);
     const fillColor = icon.fillColor;
     const lightness = fillColor.substring(
@@ -112,7 +123,7 @@ export class HomePage {
     return 100 - +lightness;
   }
 
-  getIncidentIcon(incident: Incident) {
+  getIncidentIcon(incident: IncidentViewModel) {
     let icon = this.iconCache.getValue(incident.id);
     if (!icon) {
       icon = {
@@ -127,7 +138,7 @@ export class HomePage {
     return icon;
   }
 
-  getLightnessPercentBasedOnAge(incident: Incident) {
+  getLightnessPercentBasedOnAge(incident: IncidentViewModel) {
     const [darkest, lightest] = [50, 90];
     const [minAge, maxAge] = [0, 60];
 
@@ -148,11 +159,11 @@ export class HomePage {
     await this.addIncident();
   }
 
-  async deleteClicked(incidents: Incident[]) {
+  async deleteClicked(incidents: IncidentViewModel[]) {
     await this.deleteAllIncidents(incidents);
   }
 
-  incidentClicked(incident: Incident) {
+  incidentClicked(incident: IncidentViewModel) {
     this.activeIncidentId = incident.id;
   }
 
@@ -192,7 +203,7 @@ export class HomePage {
     this.activeIncidentId = null;
   }
 
-  async deleteAllIncidents(incidents: Incident[]) {
+  async deleteAllIncidents(incidents: IncidentViewModel[]) {
     this.clearActiveIncident();
 
     const deletions = incidents.map((incident) =>
