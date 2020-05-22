@@ -11,6 +11,7 @@ import { Point } from '../models/point';
 import { CacheService } from '../services/cache.service';
 import * as moment from 'moment';
 import { normalize } from '../shared/utilities/normalize';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-map-tab',
@@ -73,7 +74,8 @@ export class MapTabPage {
     private fireStoreService: FirestoreService,
     protected geolocationService: GeolocationService,
     private changeDetector: ChangeDetectorRef,
-    protected iconCache: CacheService<GoogleSymbol>
+    protected iconCache: CacheService<GoogleSymbol>,
+    protected platform: Platform
   ) {
     this.incidents$ = this.fireStoreService.getAllIncidents();
   }
