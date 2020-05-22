@@ -123,16 +123,10 @@ export class HomePage {
   }
 
   getIncidentIcon(incident: IncidentViewModel) {
-    let icon = this.iconCache.getValue(incident.iconLightness);
-    if (!icon) {
-      icon = {
-        ...this.icon,
-        fillColor: `hsl(0, 100%, ${incident.iconLightness}%)`,
-      };
-      this.iconCache.setValue(incident.iconLightness, icon);
-    }
-
-    return icon;
+    return this.iconCache.getOrCreate(incident.iconLightness, {
+      ...this.icon,
+      fillColor: `hsl(0, 100%, ${incident.iconLightness}%)`,
+    });
   }
 
   getLightnessPercentBasedOnAge(age: number) {
