@@ -115,7 +115,7 @@ export class MapTabPage {
     const reportedAt = moment(incident.reportedAt);
     const age = now.diff(reportedAt, 'minutes'); // TODO change to hours or something else
     const normalized = normalize(age, 0, 60);
-    const opacity = _.round(1 - normalized);
+    const opacity = _.round(1 - normalized, 1);
     return _.clamp(opacity, 0.1, 1);
   }
 
