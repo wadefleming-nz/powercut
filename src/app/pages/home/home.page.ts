@@ -109,7 +109,8 @@ export class HomePage {
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
     const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
-    return { ...incident, age };
+    const iconLightness = this.getLightnessPercentBasedOnAge(age);
+    return { ...incident, age, iconLightness };
   }
 
   trackByIncidentId(_: number, incident: IncidentViewModel) {
@@ -126,9 +127,7 @@ export class HomePage {
     if (!icon) {
       icon = {
         ...this.icon,
-        fillColor: `hsl(0, 100%, ${this.getLightnessPercentBasedOnAge(
-          incident
-        )}%)`,
+        fillColor: `hsl(0, 100%, ${incident.iconLightness}%)`,
       };
       this.iconCache.setValue(incident.id, icon);
     }
@@ -136,11 +135,11 @@ export class HomePage {
     return icon;
   }
 
-  getLightnessPercentBasedOnAge(incident: IncidentViewModel) {
+  getLightnessPercentBasedOnAge(age: number) {
     const [darkest, lightest] = [50, 90];
 
     const lightness = transformBetweenRanges(
-      incident.age,
+      age,
       { min: this.minAge, max: this.maxAge },
       { min: darkest, max: lightest }
     );

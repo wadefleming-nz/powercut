@@ -4,4 +4,5 @@ export interface IncidentViewModel {
   longitude: number;
   reportedAt: string;
   age: number;
+  iconLightness: number;
 }
