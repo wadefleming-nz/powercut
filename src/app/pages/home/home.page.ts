@@ -10,8 +10,9 @@ import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../../models/point';
 import { CacheService } from '../../services/cache.service';
 import * as moment from 'moment';
-import { normalize } from '../../shared/utilities/normalize';
 import { Platform } from '@ionic/angular';
+import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
+import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,7 @@ export class HomePage {
   lightningPath = 'M7 2v11h3v9l7-12h-4l4-8z';
   icon: GoogleSymbol = {
     path: this.lightningPath,
-    fillColor: '#FF0000',
+    fillColor: 'hsl(0, 100%, 50%)',
     fillOpacity: 1.0,
     strokeColor: '#000000',
     strokeWeight: 1,
@@ -103,20 +104,29 @@ export class HomePage {
   getIncidentIcon(incident: Incident) {
     let icon = this.iconCache.getValue(incident.id);
     if (!icon) {
-      icon = { ...this.icon, fillOpacity: this.getOpacityBasedOnAge(incident) };
+      icon = {
+        ...this.icon,
+        fillColor: `hsl(0, 100%, ${this.getLightnessPercentBasedOnAge(
+          incident
+        )}%)`,
+      };
       this.iconCache.setValue(incident.id, icon);
     }
 
     return icon;
   }
 
-  getOpacityBasedOnAge(incident: Incident) {
-    const now = moment();
-    const reportedAt = moment(incident.reportedAt);
-    const age = now.diff(reportedAt, 'minutes'); // TODO change to hours or something else
-    const normalized = normalize(age, 0, 60);
-    const opacity = _.round(1 - normalized, 1);
-    return _.clamp(opacity, 0.1, 1);
+  getLightnessPercentBasedOnAge(incident: Incident) {
+    const [darkest, lightest] = [50, 90];
+    const [minAge, maxAge] = [0, 60];
+
+    const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
+    const lightness = transformBetweenRanges(
+      age,
+      { min: minAge, max: maxAge },
+      { min: darkest, max: lightest }
+    );
+    return _.clamp(roundToWhole(lightness, 10), darkest, lightest);
   }
 
   mapClicked() {
