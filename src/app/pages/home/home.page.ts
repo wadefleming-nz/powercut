@@ -101,6 +101,17 @@ export class HomePage {
     return incident.id;
   }
 
+  getIncidentZIndex(incident: Incident) {
+    const icon = this.iconCache.getValue(incident.id);
+    const fillColor = icon.fillColor;
+    const lightness = fillColor.substring(
+      fillColor.lastIndexOf(',') + 1,
+      fillColor.lastIndexOf('%')
+    );
+
+    return 100 - +lightness;
+  }
+
   getIncidentIcon(incident: Incident) {
     let icon = this.iconCache.getValue(incident.id);
     if (!icon) {

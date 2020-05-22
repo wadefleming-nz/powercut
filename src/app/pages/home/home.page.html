@@ -30,6 +30,7 @@
             [latitude]="incident.latitude"
             [longitude]="incident.longitude"
             [iconUrl]="getIncidentIcon(incident)"
+            [zIndex]="getIncidentZIndex(incident)"
             [markerClickable]="showAddIncidentPopup === 'false'"
             (markerClick)="incidentClicked(incident)"
           >
