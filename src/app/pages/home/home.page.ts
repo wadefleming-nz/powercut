@@ -46,6 +46,9 @@ export class HomePage {
     anchor: new Point(10, 22),
   };
 
+  minAge = 0;
+  maxAge = 60;
+
   newIncidentDateTime: string;
 
   incidents$ = new Observable<IncidentViewModel[]>();
@@ -105,22 +108,17 @@ export class HomePage {
   }
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
-    return { ...incident, age: 0 };
+    const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
+    return { ...incident, age };
   }
 
   trackByIncidentId(_: number, incident: IncidentViewModel) {
     return incident.id;
   }
 
+  // newer markers should appear higher
   getIncidentZIndex(incident: IncidentViewModel) {
-    const icon = this.iconCache.getValue(incident.id);
-    const fillColor = icon.fillColor;
-    const lightness = fillColor.substring(
-      fillColor.lastIndexOf(',') + 1,
-      fillColor.lastIndexOf('%')
-    );
-
-    return 100 - +lightness;
+    return this.maxAge - incident.age;
   }
 
   getIncidentIcon(incident: IncidentViewModel) {
@@ -140,12 +138,10 @@ export class HomePage {
 
   getLightnessPercentBasedOnAge(incident: IncidentViewModel) {
     const [darkest, lightest] = [50, 90];
-    const [minAge, maxAge] = [0, 60];
 
-    const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
     const lightness = transformBetweenRanges(
-      age,
-      { min: minAge, max: maxAge },
+      incident.age,
+      { min: this.minAge, max: this.maxAge },
       { min: darkest, max: lightest }
     );
     return _.clamp(roundToWhole(lightness, 10), darkest, lightest);
