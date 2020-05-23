@@ -9,10 +9,13 @@ import { environment } from 'src/environments/environment';
 })
 export class IncidentAddedPage {
   twitterShareUrl = `https://twitter.com/intent/tweet?url=${environment.appUrl}&via=${environment.twitterHandle}&text=${environment.twitterShareMessage}`;
+  facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${environment.appUrl}&quote=${environment.facebookShareMessage}`;
 
   constructor(public modalController: ModalController) {}
 
-  shareToFacebookClicked() {}
+  shareToFacebookClicked() {
+    window.open(encodeURI(this.facebookShareUrl), 'facebook');
+  }
 
   shareToTwitterClicked() {
     window.open(encodeURI(this.twitterShareUrl), 'twitter');
