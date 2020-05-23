@@ -1,3 +1,5 @@
+@import 'src/theme/mixins.scss';
+
 .title-icon {
   font-size: 16px;
   vertical-align: middle;
@@ -46,7 +48,7 @@ agm-map {
 ion-card {
   width: 94%;
   margin: 3%;
-  box-shadow: 1px -1px 3px 1px rgba(0, 0, 255, 0.2);
+  @include drop-shadow;
 }
 
 .card-footer-button {
