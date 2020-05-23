@@ -214,7 +214,8 @@ export class HomePage {
   async presentIncidentAddedModal() {
     const modal = await this.modalController.create({
       component: IncidentAddedPage,
-      cssClass: 'my-custom-class',
+      swipeToClose: true,
+      //cssClass: 'my-custom-class',
       // componentProps: { incident: this.activeIncident$ },
     });
     return await modal.present();
