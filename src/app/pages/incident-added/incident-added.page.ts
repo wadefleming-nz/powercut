@@ -15,7 +15,7 @@ export class IncidentAddedPage {
   shareToFacebookClicked() {}
 
   shareToTwitterClicked() {
-    window.open(encodeURI(this.twitterShareUrl), '_self');
+    window.open(encodeURI(this.twitterShareUrl), 'twitter');
   }
 
   dismissModal() {
