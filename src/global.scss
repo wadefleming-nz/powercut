@@ -26,6 +26,15 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 .modal-partial-screen {
-  height: 40%;
-  top: 60%;
+  height: 60%;
+  top: 40%;
+
+  .modal-wrapper {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  ion-backdrop {
+    --backdrop-opacity: 0;
+  }
 }
