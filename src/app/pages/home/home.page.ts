@@ -215,7 +215,7 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: IncidentAddedPage,
       swipeToClose: true,
-      //cssClass: 'my-custom-class',
+      cssClass: 'modal-partial-screen',
       // componentProps: { incident: this.activeIncident$ },
     });
     return await modal.present();
