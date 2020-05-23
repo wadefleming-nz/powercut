@@ -42,14 +42,14 @@
 }
 
 .button-border-left {
-  border-left: 1px solid $color-faint-border;
+  border-left: 1px solid $color-light-line;
 }
 
 .button-border-top {
-  border-top: 1px solid $color-faint-border;
+  border-top: 1px solid $color-light-line;
 }
 
-.border-top-bottom {
-  border-top: 1px solid $color-faint-border;
-  border-bottom: 1px solid $color-faint-border;
+.row-border-top-bottom {
+  border-top: 1px solid $color-faint-line;
+  border-bottom: 1px solid $color-faint-line;
 }
