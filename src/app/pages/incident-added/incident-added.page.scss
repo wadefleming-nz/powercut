@@ -1,5 +1,3 @@
-@import 'src/theme/custom-colors.scss';
-
 .social-icon {
   font-size: 46px;
 }
@@ -10,9 +8,4 @@
 
 .twitter-icon {
   color: rgb(29, 161, 242);
-}
-
-.border-top-bottom {
-  border-top: 1px solid $color-faint-border;
-  border-bottom: border-top;
 }
