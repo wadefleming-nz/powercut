@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -6,12 +6,8 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './incident-added.page.html',
   styleUrls: ['./incident-added.page.scss'],
 })
-export class IncidentAddedPage implements OnInit {
-  @Input() modal: HTMLIonModalElement;
-
+export class IncidentAddedPage {
   constructor(public modalController: ModalController) {}
-
-  ngOnInit() {}
 
   dismissModal() {
     this.modalController.dismiss();
