@@ -8,6 +8,7 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { environment } from '../../../environments/environment';
 import { SharedModule } from '../../shared/shared.module';
 import { HomePageRoutingModule } from './home-routing.module';
+import { IncidentAddedPageModule } from '../incident-added/incident-added.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     }),
     AgmSnazzyInfoWindowModule,
     SharedModule,
+    IncidentAddedPageModule,
   ],
   declarations: [HomePage],
 })

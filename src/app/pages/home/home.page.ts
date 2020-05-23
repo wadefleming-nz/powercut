@@ -10,10 +10,11 @@ import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../../models/point';
 import { CacheService } from '../../services/cache.service';
 import * as moment from 'moment';
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
 import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
+import { IncidentAddedPage } from '../incident-added/incident-added.page';
 
 @Component({
   selector: 'app-home',
@@ -80,7 +81,8 @@ export class HomePage {
     private geolocationService: GeolocationService,
     private changeDetector: ChangeDetectorRef,
     private iconCache: CacheService<GoogleSymbol>,
-    public platform: Platform
+    public platform: Platform,
+    public modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService
       .getAllIncidents()
@@ -165,6 +167,8 @@ export class HomePage {
   }
 
   async addPopupAddClicked() {
+    await this.presentIncidentAddedModal();
+
     const id = await this.fireStoreService.createIncident({
       latitude: this.centerLatitude,
       longitude: this.centerLongitude,
@@ -205,6 +209,15 @@ export class HomePage {
     this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
     this.showAddIncidentPopup();
+  }
+
+  async presentIncidentAddedModal() {
+    const modal = await this.modalController.create({
+      component: IncidentAddedPage,
+      cssClass: 'my-custom-class',
+      // componentProps: { incident: this.activeIncident$ },
+    });
+    return await modal.present();
   }
 
   async geolocationClicked() {
