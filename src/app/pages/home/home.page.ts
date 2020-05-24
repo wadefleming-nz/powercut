@@ -33,6 +33,7 @@ export class HomePage {
 
   initialZoom = 12;
   geolocateZoom = 20;
+  searchZoom = 16;
   zoom = this.initialZoom;
 
   centerIndicatorVisible = true;
@@ -125,8 +126,10 @@ export class HomePage {
     this.redisplayCenterIndicator();
   }
 
-  onPlaceChanged(place: any) {
-    console.log(place);
+  onPlaceChanged(place: google.maps.places.PlaceResult) {
+    const location = place.geometry.location;
+    const coords = { latitude: location.lat(), longitude: location.lng() };
+    this.animateTo(coords, this.searchZoom);
   }
 
   redisplayCenterIndicator() {
