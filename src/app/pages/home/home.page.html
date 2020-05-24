@@ -82,6 +82,10 @@
         <ion-card *ngIf="showAddIncidentPopup === 'true'">
           <ion-card-content>
             <ion-item lines="none">
+              <ion-label>Event</ion-label>
+              {{ getIncidentType(newIncidentStatus) }}</ion-item
+            >
+            <ion-item lines="none">
               <ion-label>Reported at</ion-label>
               <ion-datetime
                 displayFormat="hh:mm a"
@@ -119,6 +123,10 @@
         </ion-card>
         <ion-card *ngIf="activeIncident$ | async as activeIncident">
           <ion-card-content>
+            <ion-item lines="none">
+              <ion-label>Event</ion-label>
+              {{ getIncidentType(activeIncident.status) }}</ion-item
+            >
             <ion-item lines="none">
               <ion-label>Reported at</ion-label>
               <ion-datetime

@@ -68,6 +68,11 @@ export class HomePage {
     },
   };
 
+  incidentTypes: EnumDictionary<PowerStatus, string> = {
+    [PowerStatus.On]: 'Power restored',
+    [PowerStatus.Off]: 'Power outage',
+  };
+
   minAge = 0;
   maxAge = 60;
 
@@ -141,6 +146,9 @@ export class HomePage {
     return incident.id;
   }
 
+  getIncidentType(status: PowerStatus): string {
+    return this.incidentTypes[status];
+  }
   // newer markers should appear higher
   getIncidentZIndex(incident: IncidentViewModel) {
     return this.maxAge - incident.age;
