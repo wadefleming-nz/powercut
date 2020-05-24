@@ -41,26 +41,32 @@
           class="center-indicator map-center"
         ></ion-icon
         ><ion-fab vertical="top" horizontal="end" slot="fixed">
+          <ion-row
+            ><ion-col
+              ><ion-fab-button
+                color="danger"
+                [disabled]="showAddIncidentPopup === 'true'"
+                (click)="addReportOffClicked()"
+                ><ion-icon
+                  name="flash-sharp"
+                ></ion-icon></ion-fab-button></ion-col
+            ><ion-col
+              ><ion-fab-button
+                color="success"
+                [disabled]="showAddIncidentPopup === 'true'"
+                (click)="addReportOnClicked()"
+                ><ion-icon
+                  name="flash-off-sharp"
+                ></ion-icon></ion-fab-button></ion-col
+          ></ion-row> </ion-fab
+        ><ion-fab vertical="center" horizontal="end" slot="fixed">
           <ion-fab-button
-            color="secondary"
-            [disabled]="showAddIncidentPopup === 'true'"
-            ><ion-icon name="add"></ion-icon
-          ></ion-fab-button>
-          <ion-fab-list side="start">
-            <ion-fab-button color="danger" (click)="addReportOffClicked()"
-              >off</ion-fab-button
-            >
-            <ion-fab-button color="success" (click)="addReportOnClicked()"
-              >on</ion-fab-button
-            >
-          </ion-fab-list>
-        </ion-fab>
-        <ion-fab
-          vertical="top"
-          horizontal="end"
-          slot="fixed"
-          class="other-fabs"
-        >
+            *ngIf="geolocationAvailable"
+            color="light"
+            (click)="geolocationClicked()"
+          >
+            <ion-icon name="navigate-outline"></ion-icon>
+          </ion-fab-button>
           <ion-fab-button
             color="danger"
             class="ion-margin-top"
@@ -69,15 +75,8 @@
           >
             <ion-icon name="trash-outline"></ion-icon>
           </ion-fab-button>
-          <ion-fab-button
-            *ngIf="geolocationAvailable"
-            color="light"
-            class="ion-margin-top"
-            (click)="geolocationClicked()"
-          >
-            <ion-icon name="navigate-outline"></ion-icon>
-          </ion-fab-button>
         </ion-fab>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed"></ion-fab>
       </div>
       <div class="incident-container">
         <ion-card *ngIf="showAddIncidentPopup === 'true'">
