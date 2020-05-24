@@ -108,7 +108,6 @@ export class HomePage {
     private geolocationService: GeolocationService,
     private changeDetector: ChangeDetectorRef,
     private iconCache: CacheService<GoogleSymbol>,
-    public platform: Platform,
     public modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService

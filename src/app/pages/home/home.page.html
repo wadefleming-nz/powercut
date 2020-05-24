@@ -1,16 +1,3 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title
-      ><ion-icon name="flash" class="title-icon"></ion-icon>
-      <ion-text class="title-text"> Power Cut </ion-text>
-      <ion-icon
-        *ngIf="platform.is('ios')"
-        name="flash"
-        class="title-icon"
-      ></ion-icon>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 <ion-content>
   <ng-container *ngIf="showAddIncidentPopup$ | async as showAddIncidentPopup">
     <div class="container" *ngIf="incidents$ | async as incidents">
