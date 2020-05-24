@@ -64,7 +64,7 @@ ion-card {
 }
 
 ion-fab-button {
-  --box-shadow: 0px 2px 3px 1px rgba(0, 0, 255, 0.2); // not working with $color-drop-shadow
+  --box-shadow: 0px 2px 3px 1px rgba(0, 0, 255, 0.2); // ionic selectors (--) do not work with $color-drop-shadow
 }
 
 .fab-top {
@@ -77,4 +77,8 @@ ion-fab-button {
 
 .searchbar {
   --background: white;
+}
+
+.ios .searchbar {
+  --box-shadow: 1px 1px 3px 0px rgba(0, 0, 255, 0.2); // ionic selectors (--) do not work with $color-drop-shadow
 }
