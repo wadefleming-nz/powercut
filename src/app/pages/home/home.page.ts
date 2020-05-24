@@ -15,6 +15,7 @@ import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
 import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
+import { PowerStatus } from 'src/app/types/power-status';
 
 @Component({
   selector: 'app-home',
@@ -51,6 +52,7 @@ export class HomePage {
   maxAge = 60;
 
   newIncidentDateTime: string;
+  newIncidentStatus: PowerStatus;
 
   incidents$ = new Observable<IncidentViewModel[]>();
 
@@ -146,10 +148,6 @@ export class HomePage {
     this.clearActiveIncident();
   }
 
-  async addClicked() {
-    await this.addIncident();
-  }
-
   async deleteClicked(incidents: IncidentViewModel[]) {
     await this.deleteAllIncidents(incidents);
   }
@@ -159,11 +157,11 @@ export class HomePage {
   }
 
   addReportOnClicked() {
-    setTimeout(() => this.addIncident(), 0); // setTimeout so that fab list collapses immediately
+    setTimeout(() => this.addIncident('On'), 0); // setTimeout so that fab list collapses immediately
   }
 
   addReportOffClicked() {
-    setTimeout(() => this.addIncident(), 0); // setTimeout so that fab list collapses immediately
+    setTimeout(() => this.addIncident('Off'), 0); // setTimeout so that fab list collapses immediately
   }
 
   showAddIncidentPopup() {
@@ -178,6 +176,7 @@ export class HomePage {
     await this.presentIncidentAddedModal();
 
     const id = await this.fireStoreService.createIncident({
+      status: this.newIncidentStatus,
       latitude: this.centerLatitude,
       longitude: this.centerLongitude,
       reportedAt: this.newIncidentDateTime,
@@ -212,9 +211,10 @@ export class HomePage {
     await Promise.all(deletions);
   }
 
-  async addIncident() {
+  async addIncident(status: PowerStatus) {
     this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
+    this.newIncidentStatus = status;
     this.showAddIncidentPopup();
   }
 
