@@ -16,6 +16,7 @@ import { transformBetweenRanges } from 'src/app/shared/utilities/transform-betwe
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
+import { IncidentColorDefinition } from 'src/app/models/incident-color-definition';
 
 @Component({
   selector: 'app-home',
@@ -46,6 +47,24 @@ export class HomePage {
     strokeWeight: 1,
     scale: 2,
     anchor: new Point(10, 22),
+  };
+
+  incidentColorDefinitions: EnumDictionary<
+    PowerStatus,
+    IncidentColorDefinition
+  > = {
+    [PowerStatus.On]: {
+      // green
+      hue: 120,
+      saturation: 50,
+      lightnessRange: { darkest: 40, lightest: 80 },
+    },
+    [PowerStatus.Off]: {
+      // red
+      hue: 0,
+      saturation: 100,
+      lightnessRange: { darkest: 50, lightest: 90 },
+    },
   };
 
   minAge = 0;
@@ -113,8 +132,8 @@ export class HomePage {
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
     const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
-    const iconLightness = this.getLightnessPercentBasedOnAge(age);
-    return { ...incident, age, iconLightness };
+    const iconFillColor = this.getIconFillColor(incident.status, age);
+    return { ...incident, age, iconFillColor };
   }
 
   trackByIncidentId(_: number, incident: IncidentViewModel) {
@@ -127,15 +146,26 @@ export class HomePage {
   }
 
   getIncidentIcon(incident: IncidentViewModel) {
-    return this.iconCache.getOrCreate(incident.iconLightness, {
+    return this.iconCache.getOrCreate(incident.iconFillColor, {
       ...this.icon,
-      fillColor: `hsl(0, 100%, ${incident.iconLightness}%)`,
+      fillColor: incident.iconFillColor,
     });
   }
 
-  getLightnessPercentBasedOnAge(age: number) {
-    const [darkest, lightest] = [50, 90];
+  getIconFillColor(status: PowerStatus, age: number) {
+    const colorDef = this.incidentColorDefinitions[status];
+    const lightness = this.getLightnessPercentBasedOnAge(
+      age,
+      colorDef.lightnessRange
+    );
+    return `hsl(${colorDef.hue}, ${colorDef.saturation}%, ${lightness}%)`;
+  }
 
+  getLightnessPercentBasedOnAge(
+    age: number,
+    range: { darkest: number; lightest: number }
+  ) {
+    const { darkest, lightest } = range;
     const lightness = transformBetweenRanges(
       age,
       { min: this.minAge, max: this.maxAge },
@@ -157,11 +187,11 @@ export class HomePage {
   }
 
   addReportOnClicked() {
-    setTimeout(() => this.addIncident('On'), 0); // setTimeout so that fab list collapses immediately
+    setTimeout(() => this.addIncident(PowerStatus.On), 0); // setTimeout so that fab list collapses immediately
   }
 
   addReportOffClicked() {
-    setTimeout(() => this.addIncident('Off'), 0); // setTimeout so that fab list collapses immediately
+    setTimeout(() => this.addIncident(PowerStatus.Off), 0); // setTimeout so that fab list collapses immediately
   }
 
   showAddIncidentPopup() {

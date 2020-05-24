@@ -1,1 +1,4 @@
-export type PowerStatus = 'On' | 'Off';
+export enum PowerStatus {
+  On = 'On',
+  Off = 'Off',
+}
