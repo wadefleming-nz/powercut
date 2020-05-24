@@ -1,0 +1,21 @@
+// based on https://github.com/ionic-team/ionic/issues/16852#issuecomment-449433452
+@mixin modal-auto-height {
+  align-items: flex-end !important;
+  --height: auto !important;
+
+  &.bottom {
+    align-items: flex-end;
+  }
+
+  .ion-page {
+    position: relative;
+    display: block;
+    contain: content;
+
+    .inner-content {
+      max-height: 80vh;
+      overflow: auto;
+      padding: 10px;
+    }
+  }
+}
