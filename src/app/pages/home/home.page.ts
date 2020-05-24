@@ -17,6 +17,7 @@ import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
 import { IncidentColorDefinition } from 'src/app/models/incident-color-definition';
+import { EnumDictionary } from 'src/app/types/enum-dictionary';
 
 @Component({
   selector: 'app-home',
