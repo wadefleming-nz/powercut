@@ -15,10 +15,12 @@ export class IncidentAddedPage {
 
   shareToFacebookClicked() {
     window.open(encodeURI(this.facebookShareUrl), 'facebook');
+    this.modalController.dismiss();
   }
 
   shareToTwitterClicked() {
     window.open(encodeURI(this.twitterShareUrl), 'twitter');
+    this.modalController.dismiss();
   }
 
   dismissModal() {
