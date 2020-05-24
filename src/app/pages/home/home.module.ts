@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { SharedModule } from '../../shared/shared.module';
 import { HomePageRoutingModule } from './home-routing.module';
 import { IncidentAddedPageModule } from '../incident-added/incident-added.module';
+import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-address-search.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { IncidentAddedPageModule } from '../incident-added/incident-added.module
     AgmSnazzyInfoWindowModule,
     SharedModule,
     IncidentAddedPageModule,
+    GoogleAddressSearchModule,
   ],
   declarations: [HomePage],
 })

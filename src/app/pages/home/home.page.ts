@@ -127,6 +127,10 @@ export class HomePage {
     this.redisplayCenterIndicator();
   }
 
+  onPlaceChanged(place: any) {
+    console.log(place);
+  }
+
   redisplayCenterIndicator() {
     if (!this.centerIndicatorVisible) {
       setTimeout(
