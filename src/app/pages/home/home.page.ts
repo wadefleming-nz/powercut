@@ -176,7 +176,6 @@ export class HomePage {
     });
 
     this.hideAddIncidentPopup();
-    this.activeIncidentId = id;
     this.centerIndicatorVisible = false;
   }
 
