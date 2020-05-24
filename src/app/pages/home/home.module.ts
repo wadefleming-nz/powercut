@@ -19,6 +19,7 @@ import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-
     HomePageRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
+      libraries: ['places'],
     }),
     AgmSnazzyInfoWindowModule,
     SharedModule,
