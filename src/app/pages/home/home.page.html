@@ -2,10 +2,6 @@
   <ng-container *ngIf="showAddIncidentPopup$ | async as showAddIncidentPopup">
     <div class="container" *ngIf="incidents$ | async as incidents">
       <div class="map-container">
-        <ion-searchbar
-          appGoogleAddressSearch
-          (placeChanged)="onPlaceChanged($event)"
-        ></ion-searchbar>
         <agm-map
           [latitude]="latitude"
           [longitude]="longitude"
@@ -75,6 +71,13 @@
                 ></ion-icon> </ion-fab-button></ion-col
           ></ion-row>
         </ion-fab>
+      </div>
+      <div class="search-container">
+        <ion-searchbar
+          class="searchbar"
+          appGoogleAddressSearch
+          (placeChanged)="onPlaceChanged($event)"
+        ></ion-searchbar>
       </div>
       <div class="incident-container">
         <ion-card *ngIf="showAddIncidentPopup === 'true'">

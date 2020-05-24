@@ -22,6 +22,13 @@
   left: 0;
 }
 
+.search-container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .map-container {
   width: 100%;
   height: 100%;
@@ -66,4 +73,8 @@ ion-fab-button {
 
 .other-fabs {
   margin-top: 55px;
+}
+
+.searchbar {
+  --background: white;
 }
