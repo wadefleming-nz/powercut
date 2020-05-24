@@ -15,13 +15,10 @@
   <ng-container *ngIf="showAddIncidentPopup$ | async as showAddIncidentPopup">
     <div class="container" *ngIf="incidents$ | async as incidents">
       <div class="map-container">
-        <input
-          type="text"
+        <ion-searchbar
           appGoogleAddressSearch
-          class="form-control"
           (placeChanged)="onPlaceChanged($event)"
-          id="search_place"
-        />
+        ></ion-searchbar>
         <agm-map
           [latitude]="latitude"
           [longitude]="longitude"
