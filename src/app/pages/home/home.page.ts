@@ -34,7 +34,6 @@ export class HomePage {
   initialZoom = 12;
   geolocateZoom = 20;
   zoom = this.initialZoom;
-  zoomControlOptions = { position: ControlPosition.LEFT_TOP };
 
   centerIndicatorVisible = true;
   centerIndicatorRedisplayDelay = 250;
