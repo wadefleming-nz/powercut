@@ -60,6 +60,10 @@ ion-fab-button {
   --box-shadow: 0px 2px 3px 1px rgba(0, 0, 255, 0.2); // not working with $color-drop-shadow
 }
 
+.fab-top {
+  margin-top: 60px;
+}
+
 .other-fabs {
   margin-top: 55px;
 }
