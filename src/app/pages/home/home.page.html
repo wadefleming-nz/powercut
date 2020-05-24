@@ -44,10 +44,17 @@
           <ion-fab-button
             color="secondary"
             [disabled]="showAddIncidentPopup === 'true'"
-            (click)="addClicked()"
-          >
-            <ion-icon name="add"></ion-icon>
-          </ion-fab-button>
+            ><ion-icon name="add"></ion-icon
+          ></ion-fab-button>
+          <ion-fab-list side="start">
+            <ion-fab-button color="danger" (click)="addReportOffClicked()"
+              >off</ion-fab-button
+            >
+            <ion-fab-button color="success" (click)="addReportOnClicked()"
+              >on</ion-fab-button
+            >
+          </ion-fab-list>
+
           <ion-fab-button
             color="danger"
             class="ion-margin-top"

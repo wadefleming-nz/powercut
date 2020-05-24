@@ -158,6 +158,14 @@ export class HomePage {
     this.activeIncidentId = incident.id;
   }
 
+  addReportOnClicked() {
+    setTimeout(() => this.addIncident(), 0); // setTimeout so that fab list collapses immediately
+  }
+
+  addReportOffClicked() {
+    setTimeout(() => this.addIncident(), 0); // setTimeout so that fab list collapses immediately
+  }
+
   showAddIncidentPopup() {
     this.showAddIncidentPopupSubject.next(true);
   }
