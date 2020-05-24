@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, NgZone } from '@angular/core';
+import { Directive, Output, EventEmitter, NgZone, OnInit } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { IonSearchbar } from '@ionic/angular';
 
@@ -7,20 +7,22 @@ import { IonSearchbar } from '@ionic/angular';
 @Directive({
   selector: '[appGoogleAddressSearch]',
 })
-export class AppGoogleAddressSearchDirective {
+export class AppGoogleAddressSearchDirective implements OnInit {
   @Output() placeChanged = new EventEmitter<google.maps.places.PlaceResult>();
 
   constructor(
-    ionSearchBar: IonSearchbar,
-    ngZone: NgZone,
-    mapsAPILoader: MapsAPILoader
-  ) {
-    ionSearchBar.getInputElement().then((inputElement) =>
-      mapsAPILoader.load().then(() => {
+    private ionSearchBar: IonSearchbar,
+    private ngZone: NgZone,
+    private mapsAPILoader: MapsAPILoader
+  ) {}
+
+  ngOnInit() {
+    this.ionSearchBar.getInputElement().then((inputElement) =>
+      this.mapsAPILoader.load().then(() => {
         const autocomplete = new google.maps.places.Autocomplete(inputElement);
 
         autocomplete.addListener('place_changed', () => {
-          ngZone.run(() => {
+          this.ngZone.run(() => {
             const place: google.maps.places.PlaceResult = autocomplete.getPlace();
             this.placeChanged.emit(place);
           });
