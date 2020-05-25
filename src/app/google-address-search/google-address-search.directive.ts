@@ -52,7 +52,7 @@ export class AppGoogleAddressSearchDirective implements OnInit {
     );
   }
 
-  setupBiasToMapBounds() {
+  private setupBiasToMapBounds() {
     this.agmMap.mapReady
       .pipe(first())
       .subscribe((gMap: google.maps.Map) =>
