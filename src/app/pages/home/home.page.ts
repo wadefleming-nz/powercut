@@ -56,9 +56,9 @@ export class HomePage {
   > = {
     [PowerStatus.On]: {
       // green
-      hue: 120,
+      hue: 100,
       saturation: 50,
-      lightnessRange: { darkest: 40, lightest: 80 },
+      lightnessRange: { darkest: 50, lightest: 90 },
     },
     [PowerStatus.Off]: {
       // red
