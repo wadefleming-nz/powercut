@@ -3,6 +3,7 @@
     <div class="container" *ngIf="incidents$ | async as incidents">
       <div class="map-container">
         <agm-map
+          #agmMap
           [latitude]="latitude"
           [longitude]="longitude"
           [zoom]="zoom"
@@ -76,6 +77,7 @@
         <ion-searchbar
           class="searchbar"
           appGoogleAddressSearch
+          [agmMap]="agmMap"
           (placeChanged)="onPlaceChanged($event)"
         ></ion-searchbar>
       </div>
