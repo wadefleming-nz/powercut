@@ -1,5 +1,8 @@
 @import 'src/theme/custom-colors.scss';
 
+$searchbar-input-height: 42;
+$searchbar-input-padding: 12 * 2;
+
 .title-icon {
   font-size: 16px;
   vertical-align: middle;
@@ -80,5 +83,10 @@ ion-fab-button {
 }
 
 .ios .searchbar {
+  height: $searchbar-input-height + $searchbar-input-padding + 0px;
   --box-shadow: 1px 1px 3px 0px rgba(0, 0, 255, 0.2); // ionic selectors (--) do not work with $color-drop-shadow
+}
+
+::ng-deep .ios .searchbar-input-container {
+  height: $searchbar-input-height + 0px !important;
 }
