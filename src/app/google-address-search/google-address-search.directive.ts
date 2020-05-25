@@ -17,6 +17,9 @@ import { first } from 'rxjs/operators';
 })
 export class AppGoogleAddressSearchDirective implements OnInit {
   private autocomplete: google.maps.places.Autocomplete;
+  private options: google.maps.places.AutocompleteOptions = {
+    fields: ['geometry.location'],
+  };
 
   @Input()
   agmMap: AgmMap = null;
@@ -32,7 +35,10 @@ export class AppGoogleAddressSearchDirective implements OnInit {
   ngOnInit() {
     this.ionSearchBar.getInputElement().then((inputElement) =>
       this.mapsAPILoader.load().then(() => {
-        this.autocomplete = new google.maps.places.Autocomplete(inputElement);
+        this.autocomplete = new google.maps.places.Autocomplete(
+          inputElement,
+          this.options
+        );
 
         this.autocomplete.addListener('place_changed', () => {
           this.ngZone.run(() => {
