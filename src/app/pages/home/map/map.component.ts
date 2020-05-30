@@ -56,14 +56,14 @@ export class MapComponent {
     private iconCache: CacheService<GoogleSymbol>
   ) {}
 
-  centerChanged(coords: LatLngLiteral) {
+  protected centerChanged(coords: LatLngLiteral) {
     this.centerLatitude = coords.lat;
     this.centerLongitude = coords.lng;
 
     this.redisplayCenterIndicator();
   }
 
-  redisplayCenterIndicator() {
+  private redisplayCenterIndicator() {
     if (!this.centerIndicatorVisible) {
       setTimeout(
         () => (this.centerIndicatorVisible = true),
@@ -73,15 +73,18 @@ export class MapComponent {
   }
 
   // TODO
-  mapClicked() {
+  protected mapClicked() {
     //this.clearActiveIncident();
   }
 
-  trackByIncidentId(_: number, incident: IncidentViewModel) {
+  protected trackByIncidentId(_: number, incident: IncidentViewModel) {
     return incident.id;
   }
 
-  animateTo(coords: { latitude: number; longitude: number }, zoom?: number) {
+  public animateTo(
+    coords: { latitude: number; longitude: number },
+    zoom?: number
+  ) {
     this.hackToFixAnimation(zoom);
 
     this.latitude = coords.latitude;
@@ -92,7 +95,7 @@ export class MapComponent {
   }
 
   // https://github.com/SebastianM/angular-google-maps/issues/1026#issuecomment-569965653
-  hackToFixAnimation(zoom?: number) {
+  private hackToFixAnimation(zoom?: number) {
     this.latitude = 0;
     this.longitude = 0;
     if (zoom) {
@@ -102,11 +105,11 @@ export class MapComponent {
   }
 
   // newer markers should appear higher
-  getIncidentZIndex(incident: IncidentViewModel) {
+  protected getIncidentZIndex(incident: IncidentViewModel) {
     return this.maxAge - incident.age;
   }
 
-  getIncidentIcon(incident: IncidentViewModel) {
+  protected getIncidentIcon(incident: IncidentViewModel) {
     return this.iconCache.getOrCreate(incident.iconFillColor, {
       ...this.icon,
       fillColor: incident.iconFillColor,
