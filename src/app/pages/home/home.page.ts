@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Incident } from '../../models/incident';
@@ -14,6 +14,7 @@ import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
 import { IncidentColorDefinition } from 'src/app/models/incident-color-definition';
 import { EnumDictionary } from 'src/app/types/enum-dictionary';
+import { MapComponent } from './map/map.component';
 
 @Component({
   selector: 'app-home',
@@ -77,6 +78,8 @@ export class HomePage {
     this.activeIncidentIdSubject.next(id);
   }
 
+  @ViewChild(MapComponent) mapComponent: MapComponent;
+
   constructor(
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
@@ -92,10 +95,9 @@ export class HomePage {
   }
 
   onPlaceChanged(place: google.maps.places.PlaceResult) {
-    // TODO
-    // const location = place.geometry.location;
-    // const coords = { latitude: location.lat(), longitude: location.lng() };
-    // this.animateTo(coords, this.searchZoom);
+    const location = place.geometry.location;
+    const coords = { latitude: location.lat(), longitude: location.lng() };
+    this.mapComponent.animateTo(coords, this.searchZoom);
   }
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
@@ -210,10 +212,9 @@ export class HomePage {
   }
 
   async geolocationClicked() {
-    // TODO
-    // if (this.geolocationService.geolocationAvailable()) {
-    //   const coords = await this.geolocationService.getUserLocation();
-    //   this.animateTo(coords, this.geolocateZoom);
-    // }
+    if (this.geolocationService.geolocationAvailable()) {
+      const coords = await this.geolocationService.getUserLocation();
+      this.mapComponent.animateTo(coords, this.geolocateZoom);
+    }
   }
 }
