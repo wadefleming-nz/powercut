@@ -18,12 +18,11 @@ import { Subscription } from 'rxjs';
   selector: '[appGoogleAddressSearch]',
 })
 export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
+  private subscription = new Subscription();
   private autocomplete: google.maps.places.Autocomplete;
   private options: google.maps.places.AutocompleteOptions = {
     fields: ['geometry.location'],
   };
-
-  private subscription = new Subscription();
 
   @Input()
   agmMap: AgmMap = null;
@@ -39,22 +38,11 @@ export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.ionSearchBar.getInputElement().then((inputElement) => {
       this.mapsAPILoader.load().then(() => {
-        this.autocomplete = new google.maps.places.Autocomplete(
-          inputElement,
-          this.options
-        );
-
-        this.autocomplete.addListener('place_changed', () => {
-          this.ngZone.run(() => {
-            const place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
-            this.placeChanged.emit(place);
-          });
-        });
-
+        this.createAutoCompleteWidget(inputElement);
+        this.setupPlaceChangedEvent();
+        this.setupClearSuggestionsWhenSearchCleared(inputElement);
         this.setupBiasToMapBounds();
       });
-
-      this.setupClearSuggestionsWhenSearchCleared(inputElement);
     });
   }
 
@@ -62,12 +50,20 @@ export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private setupBiasToMapBounds() {
-    this.agmMap.mapReady
-      .pipe(first())
-      .subscribe((gMap: google.maps.Map) =>
-        this.autocomplete.bindTo('bounds', gMap)
-      );
+  private createAutoCompleteWidget(inputElement: HTMLInputElement) {
+    this.autocomplete = new google.maps.places.Autocomplete(
+      inputElement,
+      this.options
+    );
+  }
+
+  private setupPlaceChangedEvent() {
+    this.autocomplete.addListener('place_changed', () => {
+      this.ngZone.run(() => {
+        const place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
+        this.placeChanged.emit(place);
+      });
+    });
   }
 
   private setupClearSuggestionsWhenSearchCleared(
@@ -83,5 +79,13 @@ export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
   private hackToClearSuggestions(inputElement: HTMLInputElement) {
     inputElement.blur();
     setTimeout(() => inputElement.focus(), 100);
+  }
+
+  private setupBiasToMapBounds() {
+    this.agmMap.mapReady
+      .pipe(first())
+      .subscribe((gMap: google.maps.Map) =>
+        this.autocomplete.bindTo('bounds', gMap)
+      );
   }
 }
