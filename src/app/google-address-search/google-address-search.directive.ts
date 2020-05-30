@@ -33,7 +33,7 @@ export class AppGoogleAddressSearchDirective implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ionSearchBar.getInputElement().then((inputElement) =>
+    this.ionSearchBar.getInputElement().then((inputElement) => {
       this.mapsAPILoader.load().then(() => {
         this.autocomplete = new google.maps.places.Autocomplete(
           inputElement,
@@ -48,8 +48,10 @@ export class AppGoogleAddressSearchDirective implements OnInit {
         });
 
         this.setupBiasToMapBounds();
-      })
-    );
+      });
+
+      this.setupClearSuggestionsWhenSearchCleared(inputElement);
+    });
   }
 
   private setupBiasToMapBounds() {
@@ -58,5 +60,18 @@ export class AppGoogleAddressSearchDirective implements OnInit {
       .subscribe((gMap: google.maps.Map) =>
         this.autocomplete.bindTo('bounds', gMap)
       );
+  }
+
+  private setupClearSuggestionsWhenSearchCleared(
+    inputElement: HTMLInputElement
+  ) {
+    this.ionSearchBar.ionClear.subscribe(() =>
+      this.hackToClearSuggestions(inputElement)
+    );
+  }
+
+  private hackToClearSuggestions(inputElement: HTMLInputElement) {
+    inputElement.blur();
+    setTimeout(() => inputElement.focus(), 100);
   }
 }
