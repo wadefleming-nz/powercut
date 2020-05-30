@@ -3,14 +3,14 @@ import { FirestoreService } from '../../services/firestore.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Incident } from '../../models/incident';
 import { GeolocationService } from '../../services/geolocation.service';
-import { LatLngLiteral, ControlPosition } from '@agm/core';
+import { LatLngLiteral } from '@agm/core';
 import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from '../../models/point';
 import { CacheService } from '../../services/cache.service';
 import * as moment from 'moment';
-import { Platform, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
 import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
@@ -111,7 +111,7 @@ export class HomePage {
     public modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService
-      .getAllIncidents()
+      .getRecentIncidents()
       .pipe(
         map((incidents) =>
           _.map(incidents, (incident) => this.createIncidentViewModel(incident))

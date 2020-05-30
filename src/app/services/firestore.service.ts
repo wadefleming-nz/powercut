@@ -9,12 +9,23 @@ import { Incident } from 'src/app/models/incident';
   providedIn: 'root',
 })
 export class FirestoreService {
-  incidentsPath = 'incidents';
-  incidentCollection: AngularFirestoreCollection<Incident>;
+  private incidentsPath = 'incidents';
+  private recentIncidentsLimit = 100;
+
+  private incidentCollection: AngularFirestoreCollection<Incident>;
+  private recentIncidentCollection: AngularFirestoreCollection<Incident>;
 
   constructor(public firestore: AngularFirestore) {
+    this.initializeCollections();
+  }
+
+  private initializeCollections() {
     this.incidentCollection = this.firestore.collection<Incident>(
       this.incidentsPath
+    );
+    this.recentIncidentCollection = this.firestore.collection<Incident>(
+      this.incidentsPath,
+      (ref) => ref.orderBy('reportedAt').limitToLast(this.recentIncidentsLimit)
     );
   }
 
@@ -24,8 +35,8 @@ export class FirestoreService {
     return id;
   }
 
-  getAllIncidents() {
-    return this.incidentCollection.valueChanges();
+  getRecentIncidents() {
+    return this.recentIncidentCollection.valueChanges();
   }
 
   getIncident(id: string) {
