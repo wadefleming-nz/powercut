@@ -56,15 +56,15 @@ export class HomePage {
   > = {
     [PowerStatus.On]: {
       // green
-      hue: 100,
-      saturation: 50,
+      hue: 130,
+      saturation: 55,
       lightnessRange: { darkest: 50, lightest: 90 },
     },
     [PowerStatus.Off]: {
       // red
       hue: 0,
       saturation: 100,
-      lightnessRange: { darkest: 50, lightest: 90 },
+      lightnessRange: { darkest: 55, lightest: 95 },
     },
   };
 
@@ -185,7 +185,7 @@ export class HomePage {
       { min: this.minAge, max: this.maxAge },
       { min: darkest, max: lightest }
     );
-    return _.clamp(roundToWhole(lightness, 10), darkest, lightest);
+    return _.clamp(roundToWhole(lightness, 5), darkest, lightest);
   }
 
   mapClicked() {
