@@ -10,6 +10,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { HomePageRoutingModule } from './home-routing.module';
 import { IncidentAddedPageModule } from '../incident-added/incident-added.module';
 import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-address-search.module';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-
     IncidentAddedPageModule,
     GoogleAddressSearchModule,
   ],
-  declarations: [HomePage],
+  declarations: [HomePage, MapComponent],
 })
 export class HomePageModule {}

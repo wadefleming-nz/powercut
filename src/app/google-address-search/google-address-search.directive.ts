@@ -82,10 +82,13 @@ export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
   }
 
   private setupBiasToMapBounds() {
-    this.agmMap.mapReady
-      .pipe(first())
-      .subscribe((gMap: google.maps.Map) =>
-        this.autocomplete.bindTo('bounds', gMap)
-      );
+    if (this.agmMap) {
+      // TODO leave this check or not?
+      this.agmMap.mapReady
+        .pipe(first())
+        .subscribe((gMap: google.maps.Map) =>
+          this.autocomplete.bindTo('bounds', gMap)
+        );
+    }
   }
 }

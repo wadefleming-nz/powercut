@@ -1,14 +1,10 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Incident } from '../../models/incident';
 import { GeolocationService } from '../../services/geolocation.service';
-import { LatLngLiteral } from '@agm/core';
 import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { GoogleSymbol } from '@agm/core/services/google-maps-types';
-import { Point } from '../../models/point';
-import { CacheService } from '../../services/cache.service';
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
 import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
@@ -25,30 +21,8 @@ import { EnumDictionary } from 'src/app/types/enum-dictionary';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  latitude = 51.447359;
-  longitude = -0.336917;
-
-  centerLatitude = this.latitude;
-  centerLongitude = this.longitude;
-
-  initialZoom = 12;
   geolocateZoom = 20;
   searchZoom = 16;
-  zoom = this.initialZoom;
-
-  centerIndicatorVisible = true;
-  centerIndicatorRedisplayDelay = 250;
-
-  lightningPath = 'M7 2v11h3v9l7-12h-4l4-8z';
-  icon: GoogleSymbol = {
-    path: this.lightningPath,
-    fillColor: 'hsl(0, 100%, 50%)',
-    fillOpacity: 1.0,
-    strokeColor: '#000000',
-    strokeWeight: 1,
-    scale: 2,
-    anchor: new Point(10, 22),
-  };
 
   incidentColorDefinitions: EnumDictionary<
     PowerStatus,
@@ -106,8 +80,6 @@ export class HomePage {
   constructor(
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
-    private changeDetector: ChangeDetectorRef,
-    private iconCache: CacheService<GoogleSymbol>,
     public modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService
@@ -119,26 +91,11 @@ export class HomePage {
       );
   }
 
-  centerChanged(coords: LatLngLiteral) {
-    this.centerLatitude = coords.lat;
-    this.centerLongitude = coords.lng;
-
-    this.redisplayCenterIndicator();
-  }
-
   onPlaceChanged(place: google.maps.places.PlaceResult) {
-    const location = place.geometry.location;
-    const coords = { latitude: location.lat(), longitude: location.lng() };
-    this.animateTo(coords, this.searchZoom);
-  }
-
-  redisplayCenterIndicator() {
-    if (!this.centerIndicatorVisible) {
-      setTimeout(
-        () => (this.centerIndicatorVisible = true),
-        this.centerIndicatorRedisplayDelay
-      );
-    }
+    // TODO
+    // const location = place.geometry.location;
+    // const coords = { latitude: location.lat(), longitude: location.lng() };
+    // this.animateTo(coords, this.searchZoom);
   }
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
@@ -147,23 +104,8 @@ export class HomePage {
     return { ...incident, age, iconFillColor };
   }
 
-  trackByIncidentId(_: number, incident: IncidentViewModel) {
-    return incident.id;
-  }
-
   getIncidentType(status: PowerStatus): string {
     return this.incidentTypes[status];
-  }
-  // newer markers should appear higher
-  getIncidentZIndex(incident: IncidentViewModel) {
-    return this.maxAge - incident.age;
-  }
-
-  getIncidentIcon(incident: IncidentViewModel) {
-    return this.iconCache.getOrCreate(incident.iconFillColor, {
-      ...this.icon,
-      fillColor: incident.iconFillColor,
-    });
   }
 
   getIconFillColor(status: PowerStatus, age: number) {
@@ -186,10 +128,6 @@ export class HomePage {
       { min: darkest, max: lightest }
     );
     return _.clamp(roundToWhole(lightness, 5), darkest, lightest);
-  }
-
-  mapClicked() {
-    this.clearActiveIncident();
   }
 
   async deleteClicked(incidents: IncidentViewModel[]) {
@@ -217,17 +155,16 @@ export class HomePage {
   }
 
   async addPopupAddClicked() {
-    await this.presentIncidentAddedModal();
-
-    const id = await this.fireStoreService.createIncident({
-      status: this.newIncidentStatus,
-      latitude: this.centerLatitude,
-      longitude: this.centerLongitude,
-      reportedAt: this.newIncidentDateTime,
-    });
-
-    this.hideAddIncidentPopup();
-    this.centerIndicatorVisible = false;
+    // TODO
+    // await this.presentIncidentAddedModal();
+    // const id = await this.fireStoreService.createIncident({
+    //   status: this.newIncidentStatus,
+    //   latitude: this.centerLatitude,
+    //   longitude: this.centerLongitude,
+    //   reportedAt: this.newIncidentDateTime,
+    // });
+    // this.hideAddIncidentPopup();
+    // this.centerIndicatorVisible = false;
   }
 
   addPopupCancelClicked() {
@@ -273,29 +210,10 @@ export class HomePage {
   }
 
   async geolocationClicked() {
-    if (this.geolocationService.geolocationAvailable()) {
-      const coords = await this.geolocationService.getUserLocation();
-      this.animateTo(coords, this.geolocateZoom);
-    }
-  }
-
-  animateTo(coords: { latitude: number; longitude: number }, zoom?: number) {
-    this.hackToFixAnimation(zoom);
-
-    this.latitude = coords.latitude;
-    this.longitude = coords.longitude;
-    if (zoom) {
-      this.zoom = zoom;
-    }
-  }
-
-  // https://github.com/SebastianM/angular-google-maps/issues/1026#issuecomment-569965653
-  hackToFixAnimation(zoom?: number) {
-    this.latitude = 0;
-    this.longitude = 0;
-    if (zoom) {
-      this.zoom = 0;
-    }
-    this.changeDetector.detectChanges();
+    // TODO
+    // if (this.geolocationService.geolocationAvailable()) {
+    //   const coords = await this.geolocationService.getUserLocation();
+    //   this.animateTo(coords, this.geolocateZoom);
+    // }
   }
 }

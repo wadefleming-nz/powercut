@@ -1,0 +1,27 @@
+<agm-map
+  #agmMap
+  [latitude]="latitude"
+  [longitude]="longitude"
+  [zoom]="zoom"
+  [zoomControl]="false"
+  [streetViewControl]="false"
+  [clickableIcons]="false"
+  [usePanning]="true"
+  (centerChange)="centerChanged($event)"
+  (mapClick)="mapClicked()"
+  ><agm-marker
+    *ngFor="let incident of incidents; trackBy: trackByIncidentId"
+    [latitude]="incident.latitude"
+    [longitude]="incident.longitude"
+    [iconUrl]="getIncidentIcon(incident)"
+    [zIndex]="getIncidentZIndex(incident)"
+    [markerClickable]="allowMarkerClick"
+    (markerClick)="incidentClicked.emit(incident)"
+  >
+  </agm-marker
+></agm-map>
+<ion-icon
+  *ngIf="centerIndicatorVisible"
+  name="add-outline"
+  class="center-indicator map-center"
+></ion-icon>
