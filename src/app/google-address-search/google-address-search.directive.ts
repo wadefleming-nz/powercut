@@ -5,21 +5,25 @@ import {
   NgZone,
   OnInit,
   Input,
+  OnDestroy,
 } from '@angular/core';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { IonSearchbar } from '@ionic/angular';
 import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 // based on https://github.com/SebastianM/angular-google-maps/issues/467#issuecomment-342562167
 // adapted for ionic search bar
 @Directive({
   selector: '[appGoogleAddressSearch]',
 })
-export class AppGoogleAddressSearchDirective implements OnInit {
+export class AppGoogleAddressSearchDirective implements OnInit, OnDestroy {
   private autocomplete: google.maps.places.Autocomplete;
   private options: google.maps.places.AutocompleteOptions = {
     fields: ['geometry.location'],
   };
+
+  private subscription = new Subscription();
 
   @Input()
   agmMap: AgmMap = null;
@@ -54,6 +58,10 @@ export class AppGoogleAddressSearchDirective implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   private setupBiasToMapBounds() {
     this.agmMap.mapReady
       .pipe(first())
@@ -65,8 +73,10 @@ export class AppGoogleAddressSearchDirective implements OnInit {
   private setupClearSuggestionsWhenSearchCleared(
     inputElement: HTMLInputElement
   ) {
-    this.ionSearchBar.ionClear.subscribe(() =>
-      this.hackToClearSuggestions(inputElement)
+    this.subscription.add(
+      this.ionSearchBar.ionClear.subscribe(() =>
+        this.hackToClearSuggestions(inputElement)
+      )
     );
   }
 
