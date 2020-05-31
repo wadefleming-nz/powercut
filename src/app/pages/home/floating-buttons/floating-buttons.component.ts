@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { PowerStatus } from 'src/app/types/power-status';
 
 @Component({
   selector: 'app-floating-buttons',
@@ -6,8 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./floating-buttons.component.scss'],
 })
 export class FloatingButtonsComponent implements OnInit {
+  powerStatus = PowerStatus;
+
   @Input()
   enableAddDelete = true;
+
+  @Output()
+  addIncidentClicked = new EventEmitter<PowerStatus>();
 
   constructor() {}
 

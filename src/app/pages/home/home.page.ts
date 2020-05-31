@@ -110,14 +110,6 @@ export class HomePage {
     this.activeIncidentId = incident.id;
   }
 
-  addReportOnClicked() {
-    setTimeout(() => this.addIncident(PowerStatus.On), 0); // setTimeout so that fab list collapses immediately
-  }
-
-  addReportOffClicked() {
-    setTimeout(() => this.addIncident(PowerStatus.Off), 0); // setTimeout so that fab list collapses immediately
-  }
-
   showAddIncidentPopup() {
     this.showAddIncidentPopupSubject.next(true);
   }
@@ -163,7 +155,7 @@ export class HomePage {
     await Promise.all(deletions);
   }
 
-  async addIncident(status: PowerStatus) {
+  async onAddIncidentClicked(status: PowerStatus) {
     this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
