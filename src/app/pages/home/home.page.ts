@@ -91,7 +91,7 @@ export class HomePage {
     this.showAddIncidentPopupSubject.next(false);
   }
 
-  async addPopupAddClicked() {
+  async onAddPopupAddClicked() {
     await this.presentIncidentAddedModal();
     await this.fireStoreService.createIncident({
       status: this.newIncidentStatus,
@@ -103,7 +103,7 @@ export class HomePage {
     this.mapComponent.centerIndicatorVisible = false;
   }
 
-  addPopupCancelClicked() {
+  onAddPopupCancelClicked() {
     this.hideAddIncidentPopup();
   }
 

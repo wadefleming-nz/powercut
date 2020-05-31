@@ -23,8 +23,8 @@
           [status]="newIncidentStatus"
           leftButtonLabel="Cancel"
           rightButtonLabel="Add"
-          (leftButtonClicked)="addPopupCancelClicked()"
-          (rightButtonClicked)="addPopupAddClicked()"
+          (leftButtonClicked)="onAddPopupCancelClicked()"
+          (rightButtonClicked)="onAddPopupAddClicked()"
         ></app-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
