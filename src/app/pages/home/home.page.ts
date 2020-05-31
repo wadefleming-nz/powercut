@@ -140,7 +140,6 @@ export class HomePage {
       component: IncidentAddedPage,
       swipeToClose: true,
       cssClass: 'modal-partial-screen',
-      // componentProps: { incident: this.activeIncident$ },
     });
     return await modal.present();
   }
