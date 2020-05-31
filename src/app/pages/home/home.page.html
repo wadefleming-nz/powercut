@@ -17,51 +17,19 @@
         ></app-floating-buttons>
       </div>
       <div class="incident-container">
-        <ion-card *ngIf="showAddIncidentPopup === 'true'">
-          <ion-card-content>
-            <ion-item lines="none">
-              <ion-label>Event</ion-label>
-              {{ getIncidentType(newIncidentStatus) }}</ion-item
-            >
-            <ion-item lines="none">
-              <ion-label>Reported at</ion-label>
-              <ion-datetime
-                displayFormat="hh:mm a"
-                [value]="newIncidentDateTime"
-              ></ion-datetime> </ion-item
-            ><ion-item lines="none">
-              <ion-label>On</ion-label>
-              <ion-datetime
-                displayFormat="DD MMM YYYY"
-                [value]="newIncidentDateTime"
-              ></ion-datetime>
-            </ion-item>
-          </ion-card-content>
-          <ion-footer class="button-border-top"
-            ><ion-row class="ion-text-center">
-              <ion-col size="6" class="ion-padding"
-                ><ion-button
-                  fill="clear"
-                  class="card-footer-button"
-                  (click)="addPopupCancelClicked()"
-                  >Cancel</ion-button
-                ></ion-col
-              ><ion-col size="6" class="ion-padding button-border-left"
-                ><ion-button
-                  fill="clear"
-                  strong="true"
-                  type="submit"
-                  class="card-footer-button"
-                  (click)="addPopupAddClicked()"
-                  >Add</ion-button
-                ></ion-col
-              ></ion-row
-            ></ion-footer
-          >
-        </ion-card>
+        <app-incident-popup
+          *ngIf="showAddIncidentPopup === 'true'"
+          [reportedAtDateTime]="newIncidentDateTime"
+          [status]="newIncidentStatus"
+          actionButtonLabel="Add"
+          closeButtonLabel="Cancel"
+          (actionClicked)="addPopupAddClicked()"
+          (closeClicked)="addPopupCancelClicked()"
+        ></app-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
-          [incident]="activeIncident"
+          [reportedAtDateTime]="activeIncident.reportedAt"
+          [status]="activeIncident.status"
           actionButtonLabel="Delete"
           closeButtonLabel="Close"
           (actionClicked)="onActivePopupDeleteClicked(activeIncident.id)"

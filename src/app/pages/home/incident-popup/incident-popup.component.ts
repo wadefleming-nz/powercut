@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { PowerStatus } from 'src/app/types/power-status';
 import * as incidentConstants from '../../../constants/incident-constants';
 
@@ -10,7 +9,10 @@ import * as incidentConstants from '../../../constants/incident-constants';
 })
 export class IncidentPopupComponent {
   @Input()
-  incident: IncidentViewModel;
+  reportedAtDateTime: string;
+
+  @Input()
+  status: PowerStatus;
 
   @Input()
   actionButtonLabel: string;
