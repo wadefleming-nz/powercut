@@ -42,6 +42,8 @@ export class MapComponent {
     anchor: new Point(10, 22),
   };
 
+  deleteAllSearchString = '!!deleteall';
+
   @Input()
   incidents: IncidentViewModel[];
 
@@ -53,6 +55,9 @@ export class MapComponent {
 
   @Output()
   mapClicked = new EventEmitter();
+
+  @Output()
+  deleteAllIncidentsRequested = new EventEmitter();
 
   constructor(
     private changeDetector: ChangeDetectorRef,
@@ -115,8 +120,12 @@ export class MapComponent {
   }
 
   public onPlaceChanged(place: google.maps.places.PlaceResult) {
-    const location = place.geometry.location;
-    const coords = { latitude: location.lat(), longitude: location.lng() };
-    this.animateTo(coords, this.searchZoom);
+    if (place.name === this.deleteAllSearchString) {
+      this.deleteAllIncidentsRequested.emit();
+    } else {
+      const location = place.geometry.location;
+      const coords = { latitude: location.lat(), longitude: location.lng() };
+      this.animateTo(coords, this.searchZoom);
+    }
   }
 }

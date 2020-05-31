@@ -71,7 +71,7 @@ export class HomePage {
     return { ...incident, age, iconFillColor };
   }
 
-  async onDeleteAllIncidentsClicked(incidents: IncidentViewModel[]) {
+  async onDeleteAllIncidentsRequested(incidents: IncidentViewModel[]) {
     await this.deleteAllIncidents(incidents);
   }
 

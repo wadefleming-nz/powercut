@@ -7,13 +7,13 @@
           [allowMarkerClick]="showAddIncidentPopup === 'false'"
           (incidentClicked)="onIncidentClicked($event)"
           (mapClicked)="onMapClicked()"
+          (deleteAllIncidentsRequested)="onDeleteAllIncidentsRequested(incidents)"
         ></app-map>
         <app-floating-buttons
           [enableAddDelete]="showAddIncidentPopup === 'false'"
           [displayGeolocation]="geolocationAvailable"
           (addIncidentClicked)="onAddIncidentClicked($event)"
           (geolocationClicked)="onGeolocationClicked()"
-          (deleteAllIncidentsClicked)="onDeleteAllIncidentsClicked(incidents)"
         ></app-floating-buttons>
       </div>
       <div class="incident-container">
