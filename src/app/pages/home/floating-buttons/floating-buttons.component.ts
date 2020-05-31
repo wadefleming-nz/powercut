@@ -12,6 +12,9 @@ export class FloatingButtonsComponent implements OnInit {
   @Input()
   enableAddDelete = true;
 
+  @Input()
+  displayGeolocation = true;
+
   @Output()
   addIncidentClicked = new EventEmitter<PowerStatus>();
 
