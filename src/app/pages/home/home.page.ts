@@ -54,7 +54,7 @@ export class HomePage {
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
     private incidentColorizer: IncidentColorizerService,
-    public modalController: ModalController
+    private modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService
       .getRecentIncidents()
