@@ -19,7 +19,7 @@ import { IncidentColorizerService } from 'src/app/services/incident-colorizer.se
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  geolocateZoom = 20;
+  geolocateZoom = 18;
 
   newIncidentDateTime: string;
   newIncidentStatus: PowerStatus;
