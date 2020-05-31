@@ -20,4 +20,7 @@ export class FloatingButtonsComponent {
 
   @Output()
   geolocationClicked = new EventEmitter();
+
+  @Output()
+  deleteAllIncidentsClicked = new EventEmitter();
 }

@@ -34,7 +34,7 @@
         color="danger"
         class="ion-margin-top"
         [disabled]="!enableAddDelete"
-        (click)="deleteClicked(incidents)"
+        (click)="deleteAllIncidentsClicked.emit()"
         ><ion-icon name="trash-outline"></ion-icon> </ion-fab-button></ion-col
   ></ion-row>
 </ion-fab>

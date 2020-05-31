@@ -98,7 +98,7 @@ export class HomePage {
     return _.clamp(roundToWhole(lightness, 5), darkest, lightest);
   }
 
-  async deleteClicked(incidents: IncidentViewModel[]) {
+  async onDeleteAllIncidentsClicked(incidents: IncidentViewModel[]) {
     await this.deleteAllIncidents(incidents);
   }
 
