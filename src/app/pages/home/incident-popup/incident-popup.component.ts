@@ -13,16 +13,16 @@ export class IncidentPopupComponent {
   incident: IncidentViewModel;
 
   @Input()
-  show = false;
+  actionButtonLabel: string;
 
   @Input()
-  actionButtonLabel: string;
+  closeButtonLabel: string;
 
   @Output()
   actionClicked = new EventEmitter();
 
   @Output()
-  cancelClicked = new EventEmitter();
+  closeClicked = new EventEmitter();
 
   getIncidentType(status: PowerStatus): string {
     return incidentConstants.types[status];

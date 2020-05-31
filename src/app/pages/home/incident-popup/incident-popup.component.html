@@ -1,4 +1,4 @@
-<ion-card *ngIf="show">
+<ion-card>
   <ion-card-content>
     <ion-item lines="none">
       <ion-label>Event</ion-label>
@@ -24,18 +24,17 @@
         ><ion-button
           fill="clear"
           class="card-footer-button"
-          (click)="cancelClicked.emit()"
-          >Cancel</ion-button
+          (click)="actionClicked.emit()"
+          >{{ actionButtonLabel }}</ion-button
         ></ion-col
       ><ion-col size="6" class="ion-padding button-border-left"
         ><ion-button
           fill="clear"
           strong="true"
-          type="submit"
           class="card-footer-button"
-          (click)="actionClicked.emit()"
+          (click)="closeClicked.emit()"
         >
-          {{ actionButtonLabel }}</ion-button
+          {{ closeButtonLabel }}</ion-button
         ></ion-col
       ></ion-row
     ></ion-footer

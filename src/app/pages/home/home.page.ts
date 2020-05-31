@@ -135,11 +135,11 @@ export class HomePage {
     this.hideAddIncidentPopup();
   }
 
-  async activePopupDeleteClicked(id: string) {
+  async onActivePopupDeleteClicked(id: string) {
     await this.fireStoreService.deleteIncident(id);
   }
 
-  activePopupCloseClicked() {
+  onActivePopupCloseClicked() {
     this.clearActiveIncident();
   }
 

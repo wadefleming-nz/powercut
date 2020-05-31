@@ -59,47 +59,14 @@
             ></ion-footer
           >
         </ion-card>
-        <ion-card *ngIf="activeIncident$ | async as activeIncident">
-          <ion-card-content>
-            <ion-item lines="none">
-              <ion-label>Event</ion-label>
-              {{ getIncidentType(activeIncident.status) }}</ion-item
-            >
-            <ion-item lines="none">
-              <ion-label>Reported at</ion-label>
-              <ion-datetime
-                displayFormat="hh:mm a"
-                [value]="activeIncident.reportedAt"
-              ></ion-datetime> </ion-item
-            ><ion-item lines="none">
-              <ion-label>On</ion-label>
-              <ion-datetime
-                displayFormat="DD MMM YYYY"
-                [value]="activeIncident.reportedAt"
-              ></ion-datetime>
-            </ion-item>
-          </ion-card-content>
-          <ion-footer class="button-border-top"
-            ><ion-row class="ion-text-center">
-              <ion-col size="6" class="ion-padding"
-                ><ion-button
-                  fill="clear"
-                  class="card-footer-button"
-                  (click)="activePopupDeleteClicked(activeIncident.id)"
-                  >Delete</ion-button
-                ></ion-col
-              ><ion-col size="6" class="ion-padding button-border-left"
-                ><ion-button
-                  fill="clear"
-                  strong="true"
-                  class="card-footer-button"
-                  (click)="activePopupCloseClicked()"
-                  >Close</ion-button
-                ></ion-col
-              ></ion-row
-            ></ion-footer
-          >
-        </ion-card>
+        <app-incident-popup
+          *ngIf="activeIncident$ | async as activeIncident"
+          [incident]="activeIncident"
+          actionButtonLabel="Delete"
+          closeButtonLabel="Close"
+          (actionClicked)="onActivePopupDeleteClicked(activeIncident.id)"
+          (closeClicked)="onActivePopupCloseClicked()"
+        ></app-incident-popup>
       </div>
     </div>
   </ng-container>
