@@ -133,7 +133,7 @@ export class HomePage {
     this.clearActiveIncident();
   }
 
-  incidentClicked(incident: IncidentViewModel) {
+  onIncidentClicked(incident: IncidentViewModel) {
     this.activeIncidentId = incident.id;
   }
 
