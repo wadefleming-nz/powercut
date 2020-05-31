@@ -59,7 +59,7 @@ export class MapComponent {
     private iconCache: CacheService<GoogleSymbol>
   ) {}
 
-  protected centerChanged(coords: LatLngLiteral) {
+  public centerChanged(coords: LatLngLiteral) {
     this.centerLatitude = coords.lat;
     this.centerLongitude = coords.lng;
 
@@ -75,7 +75,7 @@ export class MapComponent {
     }
   }
 
-  protected trackByIncidentId(_: number, incident: IncidentViewModel) {
+  public trackByIncidentId(_: number, incident: IncidentViewModel) {
     return incident.id;
   }
 
@@ -103,18 +103,18 @@ export class MapComponent {
   }
 
   // newer markers should appear higher
-  protected getIncidentZIndex(incident: IncidentViewModel) {
+  public getIncidentZIndex(incident: IncidentViewModel) {
     return incidentConstants.maxAge - incident.age;
   }
 
-  protected getIncidentIcon(incident: IncidentViewModel) {
+  public getIncidentIcon(incident: IncidentViewModel) {
     return this.iconCache.getOrCreate(incident.iconFillColor, {
       ...this.icon,
       fillColor: incident.iconFillColor,
     });
   }
 
-  onPlaceChanged(place: google.maps.places.PlaceResult) {
+  public onPlaceChanged(place: google.maps.places.PlaceResult) {
     const location = place.geometry.location;
     const coords = { latitude: location.lat(), longitude: location.lng() };
     this.animateTo(coords, this.searchZoom);
