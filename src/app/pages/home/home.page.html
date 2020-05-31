@@ -19,6 +19,7 @@
       <div class="incident-container">
         <app-incident-popup
           *ngIf="showAddIncidentPopup === 'true'"
+          [editable]="true"
           [reportedAtDateTime]="newIncidentDateTime"
           [status]="newIncidentStatus"
           leftButtonLabel="Cancel"
@@ -28,6 +29,7 @@
         ></app-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
+          [editable]="false"
           [reportedAtDateTime]="activeIncident.reportedAt"
           [status]="activeIncident.status"
           leftButtonLabel="Delete"

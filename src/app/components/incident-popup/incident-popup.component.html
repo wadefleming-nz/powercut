@@ -9,12 +9,14 @@
       <ion-datetime
         displayFormat="hh:mm a"
         [value]="reportedAtDateTime"
+        [readonly]="!editable"
       ></ion-datetime> </ion-item
     ><ion-item lines="none">
       <ion-label>On</ion-label>
       <ion-datetime
         displayFormat="DD MMM YYYY"
         [value]="reportedAtDateTime"
+        [readonly]="!editable"
       ></ion-datetime>
     </ion-item>
   </ion-card-content>

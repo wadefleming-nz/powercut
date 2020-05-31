@@ -9,6 +9,9 @@ import * as incidentConstants from '../../constants/incident-constants';
 })
 export class IncidentPopupComponent {
   @Input()
+  editable: boolean;
+
+  @Input()
   reportedAtDateTime: string;
 
   @Input()
