@@ -10,7 +10,7 @@ import { LatLngLiteral } from '@agm/core';
 import { CacheService } from 'src/app/services/cache.service';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from 'src/app/models/point';
-import * as incidentConstants from '../../../constants/incident-constants';
+import * as incidentConstants from '../../constants/incident-constants';
 
 @Component({
   selector: 'app-map',

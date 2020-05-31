@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PowerStatus } from 'src/app/types/power-status';
-import * as incidentConstants from '../../../constants/incident-constants';
+import * as incidentConstants from '../../constants/incident-constants';
 
 @Component({
   selector: 'app-incident-popup',

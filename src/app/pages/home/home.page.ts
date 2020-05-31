@@ -10,7 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
-import { MapComponent } from './map/map.component';
+import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
 
 @Component({
