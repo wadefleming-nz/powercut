@@ -6,7 +6,7 @@ import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
-import { GoogleAddressSearchModule } from '../google-address-search/google-address-search.module';
+import { DirectivesModule } from '../directives/directives.module';
 
 const components = [
   FloatingButtonsComponent,
@@ -23,7 +23,7 @@ const components = [
       apiKey: environment.googleApiKey,
       libraries: ['places'],
     }),
-    GoogleAddressSearchModule,
+    DirectivesModule,
   ],
   exports: components,
 })
