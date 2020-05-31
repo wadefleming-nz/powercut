@@ -154,16 +154,15 @@ export class HomePage {
   }
 
   async addPopupAddClicked() {
-    // TODO
-    // await this.presentIncidentAddedModal();
-    // const id = await this.fireStoreService.createIncident({
-    //   status: this.newIncidentStatus,
-    //   latitude: this.centerLatitude,
-    //   longitude: this.centerLongitude,
-    //   reportedAt: this.newIncidentDateTime,
-    // });
-    // this.hideAddIncidentPopup();
-    // this.centerIndicatorVisible = false;
+    await this.presentIncidentAddedModal();
+    const id = await this.fireStoreService.createIncident({
+      status: this.newIncidentStatus,
+      latitude: this.mapComponent.centerLatitude,
+      longitude: this.mapComponent.centerLongitude,
+      reportedAt: this.newIncidentDateTime,
+    });
+    this.hideAddIncidentPopup();
+    this.mapComponent.centerIndicatorVisible = false;
   }
 
   addPopupCancelClicked() {
