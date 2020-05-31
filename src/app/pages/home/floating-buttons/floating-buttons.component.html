@@ -1,0 +1,40 @@
+<ion-fab vertical="top" horizontal="end" slot="fixed" class="fab-top">
+  <ion-row
+    ><ion-col
+      ><ion-fab-button
+        color="danger"
+        [disabled]="showAddIncidentPopup === 'true'"
+        (click)="addReportOffClicked()"
+        ><ion-icon name="flash-off-sharp"></ion-icon></ion-fab-button></ion-col
+    ><ion-col
+      ><ion-fab-button
+        color="success"
+        [disabled]="showAddIncidentPopup === 'true'"
+        (click)="addReportOnClicked()"
+        ><ion-icon
+          name="flash-sharp"
+        ></ion-icon></ion-fab-button></ion-col></ion-row
+  ><ion-row class="ion-margin-top"></ion-row
+  ><ion-row
+    ><ion-col></ion-col
+    ><ion-col
+      ><ion-fab-button
+        *ngIf="geolocationAvailable"
+        color="light"
+        class="ion-margin-top"
+        (click)="geolocationClicked()"
+      >
+        <ion-icon
+          name="navigate-outline"
+        ></ion-icon> </ion-fab-button></ion-col></ion-row
+  ><ion-row
+    ><ion-col></ion-col
+    ><ion-col
+      ><ion-fab-button
+        color="danger"
+        class="ion-margin-top"
+        [disabled]="showAddIncidentPopup === 'true'"
+        (click)="deleteClicked(incidents)"
+        ><ion-icon name="trash-outline"></ion-icon> </ion-fab-button></ion-col
+  ></ion-row>
+</ion-fab>

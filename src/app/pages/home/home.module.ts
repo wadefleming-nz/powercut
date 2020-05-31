@@ -11,6 +11,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { IncidentAddedPageModule } from '../incident-added/incident-added.module';
 import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-address-search.module';
 import { MapComponent } from './map/map.component';
+import { FloatingButtonsComponent } from './floating-buttons/floating-buttons.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,6 @@ import { MapComponent } from './map/map.component';
     IncidentAddedPageModule,
     GoogleAddressSearchModule,
   ],
-  declarations: [HomePage, MapComponent],
+  declarations: [HomePage, MapComponent, FloatingButtonsComponent],
 })
 export class HomePageModule {}
