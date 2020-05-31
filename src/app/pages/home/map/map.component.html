@@ -25,3 +25,11 @@
   name="add-outline"
   class="center-indicator map-center"
 ></ion-icon>
+<div class="search-container">
+  <ion-searchbar
+    class="searchbar"
+    appGoogleAddressSearch
+    [agmMap]="agmMap"
+    (placeChanged)="onPlaceChanged($event)"
+  ></ion-searchbar>
+</div>

@@ -24,6 +24,7 @@ export class MapComponent {
   centerLongitude = this.longitude;
 
   initialZoom = 12;
+  searchZoom = 16;
   zoom = this.initialZoom;
 
   centerIndicatorVisible = true;
@@ -114,5 +115,11 @@ export class MapComponent {
       ...this.icon,
       fillColor: incident.iconFillColor,
     });
+  }
+
+  onPlaceChanged(place: google.maps.places.PlaceResult) {
+    const location = place.geometry.location;
+    const coords = { latitude: location.lat(), longitude: location.lng() };
+    this.animateTo(coords, this.searchZoom);
   }
 }

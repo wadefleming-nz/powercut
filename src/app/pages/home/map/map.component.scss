@@ -15,3 +15,26 @@ agm-map {
   color: darkslategrey;
   pointer-events: none;
 }
+
+.search-container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.searchbar {
+  --background: white;
+}
+
+$searchbar-input-height: 45;
+$searchbar-input-padding: 12 * 2;
+
+::ng-deep .ios .searchbar {
+  height: $searchbar-input-height + $searchbar-input-padding + 0px;
+  --box-shadow: 1px 1px 3px 0px rgba(0, 0, 255, 0.2); // ionic selectors (--) do not work with $color-drop-shadow
+}
+
+::ng-deep .ios .searchbar-input-container {
+  height: $searchbar-input-height + 0px !important;
+}

@@ -51,14 +51,6 @@
           ></ion-row>
         </ion-fab>
       </div>
-      <div class="search-container">
-        <ion-searchbar
-          class="searchbar"
-          appGoogleAddressSearch
-          [agmMap]="agmMap"
-          (placeChanged)="onPlaceChanged($event)"
-        ></ion-searchbar>
-      </div>
       <div class="incident-container">
         <ion-card *ngIf="showAddIncidentPopup === 'true'">
           <ion-card-content>

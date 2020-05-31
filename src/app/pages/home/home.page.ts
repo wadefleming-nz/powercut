@@ -23,7 +23,6 @@ import { MapComponent } from './map/map.component';
 })
 export class HomePage {
   geolocateZoom = 20;
-  searchZoom = 16;
 
   incidentColorDefinitions: EnumDictionary<
     PowerStatus,
@@ -92,12 +91,6 @@ export class HomePage {
           _.map(incidents, (incident) => this.createIncidentViewModel(incident))
         )
       );
-  }
-
-  onPlaceChanged(place: google.maps.places.PlaceResult) {
-    const location = place.geometry.location;
-    const coords = { latitude: location.lat(), longitude: location.lng() };
-    this.mapComponent.animateTo(coords, this.searchZoom);
   }
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
