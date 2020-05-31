@@ -7,13 +7,11 @@ import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ModalController } from '@ionic/angular';
-import { roundToWhole } from 'src/app/shared/utilities/round-to-whole';
-import { transformBetweenRanges } from 'src/app/shared/utilities/transform-between-ranges';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
 import { MapComponent } from './map/map.component';
-import * as incidentConstants from '../../constants/incident-constants';
+import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
 
 @Component({
   selector: 'app-home',
@@ -55,6 +53,7 @@ export class HomePage {
   constructor(
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
+    private incidentColorizer: IncidentColorizerService,
     public modalController: ModalController
   ) {
     this.incidents$ = this.fireStoreService
@@ -68,30 +67,8 @@ export class HomePage {
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
     const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
-    const iconFillColor = this.getIconFillColor(incident.status, age);
+    const iconFillColor = this.incidentColorizer.getColor(incident.status, age);
     return { ...incident, age, iconFillColor };
-  }
-
-  getIconFillColor(status: PowerStatus, age: number) {
-    const colorDef = incidentConstants.colorDefinitions[status];
-    const lightness = this.getLightnessPercentBasedOnAge(
-      age,
-      colorDef.lightnessRange
-    );
-    return `hsl(${colorDef.hue}, ${colorDef.saturation}%, ${lightness}%)`;
-  }
-
-  getLightnessPercentBasedOnAge(
-    age: number,
-    range: { darkest: number; lightest: number }
-  ) {
-    const { darkest, lightest } = range;
-    const lightness = transformBetweenRanges(
-      age,
-      { min: incidentConstants.minAge, max: incidentConstants.maxAge },
-      { min: darkest, max: lightest }
-    );
-    return _.clamp(roundToWhole(lightness, 5), darkest, lightest);
   }
 
   async onDeleteAllIncidentsClicked(incidents: IncidentViewModel[]) {
