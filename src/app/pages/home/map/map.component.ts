@@ -10,6 +10,7 @@ import { LatLngLiteral } from '@agm/core';
 import { CacheService } from 'src/app/services/cache.service';
 import { GoogleSymbol } from '@agm/core/services/google-maps-types';
 import { Point } from 'src/app/models/point';
+import * as incidentConstants from '../../../constants/incident-constants';
 
 @Component({
   selector: 'app-map',
@@ -29,8 +30,6 @@ export class MapComponent {
 
   centerIndicatorVisible = true;
   centerIndicatorRedisplayDelay = 250;
-
-  maxAge = 60; // TODO use same value as in home.page.ts
 
   lightningPath = 'M7 2v11h3v9l7-12h-4l4-8z';
   icon: GoogleSymbol = {
@@ -105,7 +104,7 @@ export class MapComponent {
 
   // newer markers should appear higher
   protected getIncidentZIndex(incident: IncidentViewModel) {
-    return this.maxAge - incident.age;
+    return incidentConstants.maxAge - incident.age;
   }
 
   protected getIncidentIcon(incident: IncidentViewModel) {

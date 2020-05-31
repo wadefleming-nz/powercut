@@ -12,9 +12,8 @@ import { transformBetweenRanges } from 'src/app/shared/utilities/transform-betwe
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
-import { IncidentColorDefinition } from 'src/app/models/incident-color-definition';
-import { EnumDictionary } from 'src/app/types/enum-dictionary';
 import { MapComponent } from './map/map.component';
+import * as incidentConstants from '../../constants/incident-constants';
 
 @Component({
   selector: 'app-home',
@@ -23,32 +22,6 @@ import { MapComponent } from './map/map.component';
 })
 export class HomePage {
   geolocateZoom = 20;
-
-  incidentColorDefinitions: EnumDictionary<
-    PowerStatus,
-    IncidentColorDefinition
-  > = {
-    [PowerStatus.On]: {
-      // green
-      hue: 130,
-      saturation: 55,
-      lightnessRange: { darkest: 50, lightest: 90 },
-    },
-    [PowerStatus.Off]: {
-      // red
-      hue: 0,
-      saturation: 100,
-      lightnessRange: { darkest: 55, lightest: 95 },
-    },
-  };
-
-  incidentTypes: EnumDictionary<PowerStatus, string> = {
-    [PowerStatus.On]: 'Power restored',
-    [PowerStatus.Off]: 'Power outage',
-  };
-
-  minAge = 0;
-  maxAge = 60;
 
   newIncidentDateTime: string;
   newIncidentStatus: PowerStatus;
@@ -100,11 +73,11 @@ export class HomePage {
   }
 
   getIncidentType(status: PowerStatus): string {
-    return this.incidentTypes[status];
+    return incidentConstants.types[status];
   }
 
   getIconFillColor(status: PowerStatus, age: number) {
-    const colorDef = this.incidentColorDefinitions[status];
+    const colorDef = incidentConstants.colorDefinitions[status];
     const lightness = this.getLightnessPercentBasedOnAge(
       age,
       colorDef.lightnessRange
@@ -119,7 +92,7 @@ export class HomePage {
     const { darkest, lightest } = range;
     const lightness = transformBetweenRanges(
       age,
-      { min: this.minAge, max: this.maxAge },
+      { min: incidentConstants.minAge, max: incidentConstants.maxAge },
       { min: darkest, max: lightest }
     );
     return _.clamp(roundToWhole(lightness, 5), darkest, lightest);
