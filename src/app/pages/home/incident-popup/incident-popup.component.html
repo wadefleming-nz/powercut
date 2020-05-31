@@ -1,0 +1,43 @@
+<ion-card *ngIf="show">
+  <ion-card-content>
+    <ion-item lines="none">
+      <ion-label>Event</ion-label>
+      {{ getIncidentType(incident.status) }}</ion-item
+    >
+    <ion-item lines="none">
+      <ion-label>Reported at</ion-label>
+      <ion-datetime
+        displayFormat="hh:mm a"
+        [value]="incident.reportedAt"
+      ></ion-datetime> </ion-item
+    ><ion-item lines="none">
+      <ion-label>On</ion-label>
+      <ion-datetime
+        displayFormat="DD MMM YYYY"
+        [value]="incident.reportedAt"
+      ></ion-datetime>
+    </ion-item>
+  </ion-card-content>
+  <ion-footer class="button-border-top"
+    ><ion-row class="ion-text-center">
+      <ion-col size="6" class="ion-padding"
+        ><ion-button
+          fill="clear"
+          class="card-footer-button"
+          (click)="cancelClicked.emit()"
+          >Cancel</ion-button
+        ></ion-col
+      ><ion-col size="6" class="ion-padding button-border-left"
+        ><ion-button
+          fill="clear"
+          strong="true"
+          type="submit"
+          class="card-footer-button"
+          (click)="actionClicked.emit()"
+        >
+          {{ actionButtonLabel }}</ion-button
+        ></ion-col
+      ></ion-row
+    ></ion-footer
+  >
+</ion-card>

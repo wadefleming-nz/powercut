@@ -12,6 +12,7 @@ import { IncidentAddedPageModule } from '../incident-added/incident-added.module
 import { GoogleAddressSearchModule } from 'src/app/google-address-search/google-address-search.module';
 import { MapComponent } from './map/map.component';
 import { FloatingButtonsComponent } from './floating-buttons/floating-buttons.component';
+import { IncidentPopupComponent } from './incident-popup/incident-popup.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,11 @@ import { FloatingButtonsComponent } from './floating-buttons/floating-buttons.co
     IncidentAddedPageModule,
     GoogleAddressSearchModule,
   ],
-  declarations: [HomePage, MapComponent, FloatingButtonsComponent],
+  declarations: [
+    HomePage,
+    MapComponent,
+    FloatingButtonsComponent,
+    IncidentPopupComponent,
+  ],
 })
 export class HomePageModule {}

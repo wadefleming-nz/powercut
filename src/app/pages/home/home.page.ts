@@ -72,6 +72,7 @@ export class HomePage {
     return { ...incident, age, iconFillColor };
   }
 
+  // TODO remove
   getIncidentType(status: PowerStatus): string {
     return incidentConstants.types[status];
   }
