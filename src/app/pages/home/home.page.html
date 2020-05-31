@@ -5,6 +5,7 @@
         <app-map
           [incidents]="incidents"
           [allowMarkerClick]="showAddIncidentPopup === 'false'"
+          (mapClicked)="onMapClicked()"
         ></app-map>
         <ion-fab vertical="top" horizontal="end" slot="fixed" class="fab-top">
           <ion-row

@@ -8,7 +8,7 @@
   [clickableIcons]="false"
   [usePanning]="true"
   (centerChange)="centerChanged($event)"
-  (mapClick)="mapClicked()"
+  (mapClick)="mapClicked.emit()"
   ><agm-marker
     *ngFor="let incident of incidents; trackBy: trackByIncidentId"
     [latitude]="incident.latitude"

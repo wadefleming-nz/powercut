@@ -52,6 +52,9 @@ export class MapComponent {
   @Output()
   incidentClicked = new EventEmitter<IncidentViewModel>();
 
+  @Output()
+  mapClicked = new EventEmitter();
+
   constructor(
     private changeDetector: ChangeDetectorRef,
     private iconCache: CacheService<GoogleSymbol>
@@ -71,11 +74,6 @@ export class MapComponent {
         this.centerIndicatorRedisplayDelay
       );
     }
-  }
-
-  // TODO
-  protected mapClicked() {
-    //this.clearActiveIncident();
   }
 
   protected trackByIncidentId(_: number, incident: IncidentViewModel) {

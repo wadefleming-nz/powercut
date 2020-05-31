@@ -129,6 +129,10 @@ export class HomePage {
     await this.deleteAllIncidents(incidents);
   }
 
+  onMapClicked() {
+    this.clearActiveIncident();
+  }
+
   incidentClicked(incident: IncidentViewModel) {
     this.activeIncidentId = incident.id;
   }
