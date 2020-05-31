@@ -72,11 +72,6 @@ export class HomePage {
     return { ...incident, age, iconFillColor };
   }
 
-  // TODO remove
-  getIncidentType(status: PowerStatus): string {
-    return incidentConstants.types[status];
-  }
-
   getIconFillColor(status: PowerStatus, age: number) {
     const colorDef = incidentConstants.colorDefinitions[status];
     const lightness = this.getLightnessPercentBasedOnAge(
@@ -121,7 +116,7 @@ export class HomePage {
 
   async addPopupAddClicked() {
     await this.presentIncidentAddedModal();
-    const id = await this.fireStoreService.createIncident({
+    await this.fireStoreService.createIncident({
       status: this.newIncidentStatus,
       latitude: this.mapComponent.centerLatitude,
       longitude: this.mapComponent.centerLongitude,
