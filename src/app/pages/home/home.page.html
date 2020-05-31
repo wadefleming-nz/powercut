@@ -8,7 +8,9 @@
           (incidentClicked)="onIncidentClicked($event)"
           (mapClicked)="onMapClicked()"
         ></app-map>
-        <app-floating-buttons></app-floating-buttons>
+        <app-floating-buttons
+          [enableAddDelete]="showAddIncidentPopup === 'false'"
+        ></app-floating-buttons>
       </div>
       <div class="incident-container">
         <ion-card *ngIf="showAddIncidentPopup === 'true'">
