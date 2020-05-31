@@ -18,17 +18,17 @@ import * as incidentConstants from '../../constants/incident-constants';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent {
-  latitude = 51.447359;
-  longitude = -0.336917;
+  latitude = 54.5947;
+  longitude = -4.7873;
 
   centerLatitude = this.latitude;
   centerLongitude = this.longitude;
 
-  initialZoom = 12;
+  initialZoom = 5;
   searchZoom = 16;
   zoom = this.initialZoom;
 
-  centerIndicatorVisible = true;
+  centerIndicatorVisible = false;
   centerIndicatorRedisplayDelay = 250;
 
   lightningPath = 'M7 2v11h3v9l7-12h-4l4-8z';
