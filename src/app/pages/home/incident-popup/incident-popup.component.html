@@ -21,14 +21,13 @@
   <ion-footer class="button-border-top"
     ><ion-row class="ion-text-center">
       <ion-col size="6" class="ion-padding"
-        ><ion-button fill="clear" class="" (click)="leftButtonClicked.emit()">{{
+        ><ion-button fill="clear" (click)="leftButtonClicked.emit()">{{
           leftButtonLabel
         }}</ion-button></ion-col
       ><ion-col size="6" class="ion-padding button-border-left"
         ><ion-button
           fill="clear"
           strong="true"
-          class=""
           (click)="rightButtonClicked.emit()"
         >
           {{ rightButtonLabel }}</ion-button
