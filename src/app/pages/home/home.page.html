@@ -21,19 +21,19 @@
           *ngIf="showAddIncidentPopup === 'true'"
           [reportedAtDateTime]="newIncidentDateTime"
           [status]="newIncidentStatus"
-          actionButtonLabel="Add"
-          closeButtonLabel="Cancel"
-          (actionClicked)="addPopupAddClicked()"
-          (closeClicked)="addPopupCancelClicked()"
+          leftButtonLabel="Add"
+          rightButtonLabel="Cancel"
+          (leftButtonClicked)="addPopupAddClicked()"
+          (rightButtonClicked)="addPopupCancelClicked()"
         ></app-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
           [reportedAtDateTime]="activeIncident.reportedAt"
           [status]="activeIncident.status"
-          actionButtonLabel="Delete"
-          closeButtonLabel="Close"
-          (actionClicked)="onActivePopupDeleteClicked(activeIncident.id)"
-          (closeClicked)="onActivePopupCloseClicked()"
+          leftButtonLabel="Delete"
+          rightButtonLabel="Close"
+          (leftButtonClicked)="onActivePopupDeleteClicked(activeIncident.id)"
+          (rightButtonClicked)="onActivePopupCloseClicked()"
         ></app-incident-popup>
       </div>
     </div>

@@ -15,16 +15,16 @@ export class IncidentPopupComponent {
   status: PowerStatus;
 
   @Input()
-  actionButtonLabel: string;
+  leftButtonLabel: string;
 
   @Input()
-  closeButtonLabel: string;
+  rightButtonLabel: string;
 
   @Output()
-  actionClicked = new EventEmitter();
+  leftButtonClicked = new EventEmitter();
 
   @Output()
-  closeClicked = new EventEmitter();
+  rightButtonClicked = new EventEmitter();
 
   getIncidentType(status: PowerStatus): string {
     return incidentConstants.types[status];
