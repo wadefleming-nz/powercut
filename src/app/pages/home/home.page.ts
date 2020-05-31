@@ -172,7 +172,7 @@ export class HomePage {
     return await modal.present();
   }
 
-  async geolocationClicked() {
+  async onGeolocationClicked() {
     if (this.geolocationService.geolocationAvailable()) {
       const coords = await this.geolocationService.getUserLocation();
       this.mapComponent.animateTo(coords, this.geolocateZoom);

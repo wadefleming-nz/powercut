@@ -22,7 +22,7 @@
         *ngIf="displayGeolocation"
         color="light"
         class="ion-margin-top"
-        (click)="geolocationClicked()"
+        (click)="geolocationClicked.emit()"
       >
         <ion-icon
           name="navigate-outline"

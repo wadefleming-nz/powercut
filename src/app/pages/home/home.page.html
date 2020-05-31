@@ -12,6 +12,7 @@
           [enableAddDelete]="showAddIncidentPopup === 'false'"
           [displayGeolocation]="geolocationAvailable"
           (addIncidentClicked)="onAddIncidentClicked($event)"
+          (geolocationClicked)="onGeolocationClicked()"
         ></app-floating-buttons>
       </div>
       <div class="incident-container">

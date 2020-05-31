@@ -17,4 +17,7 @@ export class FloatingButtonsComponent {
 
   @Output()
   addIncidentClicked = new EventEmitter<PowerStatus>();
+
+  @Output()
+  geolocationClicked = new EventEmitter();
 }
