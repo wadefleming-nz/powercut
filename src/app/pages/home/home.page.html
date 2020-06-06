@@ -17,16 +17,14 @@
         ></app-floating-buttons>
       </div>
       <div class="incident-container">
-        <app-incident-popup
-          *ngIf="showAddIncidentPopup === 'true'"
-          [editable]="true"
-          [reportedAtDateTime]="newIncidentDateTime"
+        <app-add-incident-popup
+          [show]="showAddIncidentPopup === 'true'"
           [status]="newIncidentStatus"
-          leftButtonLabel="Cancel"
-          rightButtonLabel="Add"
-          (leftButtonClicked)="onAddPopupCancelClicked()"
-          (rightButtonClicked)="onAddPopupAddClicked()"
-        ></app-incident-popup>
+          [reportedAtDateTime]="newIncidentDateTime"
+          [latitude]="mapComponent?.centerLatitude"
+          [longitude]="mapComponent?.centerLongitude"
+          (incidentAdded)="onIncidentAdded()"
+        ></app-add-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
           [editable]="false"

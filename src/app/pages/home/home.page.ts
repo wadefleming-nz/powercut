@@ -53,8 +53,7 @@ export class HomePage {
   constructor(
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
-    private incidentColorizer: IncidentColorizerService,
-    private modalController: ModalController
+    private incidentColorizer: IncidentColorizerService
   ) {
     this.incidents$ = this.fireStoreService
       .getRecentIncidents()
@@ -91,22 +90,6 @@ export class HomePage {
     this.showAddIncidentPopupSubject.next(false);
   }
 
-  async onAddPopupAddClicked() {
-    await this.presentIncidentAddedModal();
-    await this.fireStoreService.createIncident({
-      status: this.newIncidentStatus,
-      latitude: this.mapComponent.centerLatitude,
-      longitude: this.mapComponent.centerLongitude,
-      reportedAt: this.newIncidentDateTime,
-    });
-    this.hideAddIncidentPopup();
-    this.mapComponent.centerIndicatorVisible = false;
-  }
-
-  onAddPopupCancelClicked() {
-    this.hideAddIncidentPopup();
-  }
-
   async onActivePopupDeleteClicked(id: string) {
     await this.fireStoreService.deleteIncident(id);
   }
@@ -135,13 +118,8 @@ export class HomePage {
     this.showAddIncidentPopup();
   }
 
-  async presentIncidentAddedModal() {
-    const modal = await this.modalController.create({
-      component: IncidentAddedPage,
-      swipeToClose: true,
-      cssClass: 'modal-partial-screen',
-    });
-    return await modal.present();
+  onIncidentAdded() {
+    this.mapComponent.centerIndicatorVisible = false;
   }
 
   async onGeolocationClicked() {

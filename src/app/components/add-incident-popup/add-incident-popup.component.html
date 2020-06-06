@@ -1,0 +1,10 @@
+<app-incident-popup
+  *ngIf="show"
+  [editable]="true"
+  [reportedAtDateTime]="reportedAtDateTime"
+  [status]="status"
+  leftButtonLabel="Cancel"
+  rightButtonLabel="Add"
+  (leftButtonClicked)="onAddPopupCancelClicked()"
+  (rightButtonClicked)="onAddPopupAddClicked()"
+></app-incident-popup>
