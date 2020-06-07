@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { PowerStatus } from 'src/app/types/power-status';
 import { IncidentAddedPage } from 'src/app/pages/incident-added/incident-added.page';
+import { PopupController } from 'src/app/services/popup-controller.service';
 
 @Component({
   selector: 'app-add-incident-popup',
@@ -10,9 +11,6 @@ import { IncidentAddedPage } from 'src/app/pages/incident-added/incident-added.p
   styleUrls: ['./add-incident-popup.component.scss'],
 })
 export class AddIncidentPopupComponent implements OnInit {
-  @Input()
-  show = true;
-
   @Input()
   status: PowerStatus;
 
@@ -30,6 +28,7 @@ export class AddIncidentPopupComponent implements OnInit {
   incidentAdded = new EventEmitter();
 
   constructor(
+    private popupController: PopupController,
     private modalController: ModalController,
     private fireStoreService: FirestoreService
   ) {}
@@ -44,14 +43,13 @@ export class AddIncidentPopupComponent implements OnInit {
       longitude: this.longitude,
       reportedAt: this.reportedAtDateTime,
     });
-    //this.hideAddIncidentPopup();
-    this.show = false;
+
     this.incidentAdded.emit();
+    this.popupController.dismiss();
   }
 
   onAddPopupCancelClicked() {
-    //this.hideAddIncidentPopup();
-    this.show = false;
+    this.popupController.dismiss();
   }
 
   async presentIncidentAddedModal() {

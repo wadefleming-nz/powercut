@@ -17,14 +17,6 @@
         ></app-floating-buttons>
       </div>
       <div class="incident-container">
-        <app-add-incident-popup
-          [show]="showAddIncidentPopup === 'true'"
-          [status]="newIncidentStatus"
-          [reportedAtDateTime]="newIncidentDateTime"
-          [latitude]="mapComponent?.centerLatitude"
-          [longitude]="mapComponent?.centerLongitude"
-          (incidentAdded)="onIncidentAdded()"
-        ></app-add-incident-popup>
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"
           [editable]="false"

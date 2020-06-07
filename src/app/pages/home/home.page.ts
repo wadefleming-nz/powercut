@@ -6,12 +6,12 @@ import { GeolocationService } from '../../services/geolocation.service';
 import { switchMap, map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { ModalController } from '@ionic/angular';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
-import { IncidentAddedPage } from '../incident-added/incident-added.page';
 import { PowerStatus } from 'src/app/types/power-status';
 import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
+import { PopupController } from 'src/app/services/popup-controller.service';
+import { AddIncidentPopupComponent } from 'src/app/components/add-incident-popup/add-incident-popup.component';
 
 @Component({
   selector: 'app-home',
@@ -35,11 +35,6 @@ export class HomePage {
     )
   );
 
-  showAddIncidentPopupSubject = new BehaviorSubject<boolean>(false);
-  showAddIncidentPopup$ = this.showAddIncidentPopupSubject.pipe(
-    map((showPopup) => (showPopup ? 'true' : 'false')) // use non-falsy strings for compatibility with *ngIf async
-  );
-
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
   }
@@ -53,7 +48,8 @@ export class HomePage {
   constructor(
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
-    private incidentColorizer: IncidentColorizerService
+    private incidentColorizer: IncidentColorizerService,
+    private popupController: PopupController
   ) {
     this.incidents$ = this.fireStoreService
       .getRecentIncidents()
@@ -82,14 +78,6 @@ export class HomePage {
     this.activeIncidentId = incident.id;
   }
 
-  showAddIncidentPopup() {
-    this.showAddIncidentPopupSubject.next(true);
-  }
-
-  hideAddIncidentPopup() {
-    this.showAddIncidentPopupSubject.next(false);
-  }
-
   async onActivePopupDeleteClicked(id: string) {
     await this.fireStoreService.deleteIncident(id);
   }
@@ -115,7 +103,9 @@ export class HomePage {
     this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
-    this.showAddIncidentPopup();
+    this.popupController.create({
+      component: AddIncidentPopupComponent,
+    });
   }
 
   onIncidentAdded() {
