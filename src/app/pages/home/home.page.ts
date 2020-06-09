@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Incident } from '../../models/incident';
 import { GeolocationService } from '../../services/geolocation.service';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { IncidentViewModel } from 'src/app/models/incident-view-model';
@@ -27,25 +27,12 @@ export class HomePage {
 
   incidents$ = new Observable<IncidentViewModel[]>();
 
-  activeIncidentIdSubject = new BehaviorSubject<string>(null);
-  activeIncident$ = this.activeIncidentIdSubject.pipe(
-    switchMap((id) =>
-      this.incidents$.pipe(
-        map((incidents) => incidents.find((i) => i.id === id))
-      )
-    )
-  );
-
   dialogShowing$ = this.nonModalDialogController.active$.pipe(
     map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
   );
 
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
-  }
-
-  set activeIncidentId(id: string) {
-    this.activeIncidentIdSubject.next(id);
   }
 
   @ViewChild(MapComponent) mapComponent: MapComponent;
@@ -76,7 +63,7 @@ export class HomePage {
   }
 
   onMapClicked() {
-    this.clearActiveIncident();
+    this.nonModalDialogController.dismiss();
   }
 
   onIncidentClicked(incident: IncidentViewModel) {
@@ -85,12 +72,8 @@ export class HomePage {
     });
   }
 
-  clearActiveIncident() {
-    this.activeIncidentId = null;
-  }
-
   async deleteAllIncidents(incidents: IncidentViewModel[]) {
-    this.clearActiveIncident();
+    this.nonModalDialogController.dismiss();
 
     const deletions = incidents.map((incident) =>
       this.fireStoreService.deleteIncident(incident.id)
@@ -99,7 +82,6 @@ export class HomePage {
   }
 
   async onAddIncidentClicked(status: PowerStatus) {
-    this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
     this.nonModalDialogController.create({
