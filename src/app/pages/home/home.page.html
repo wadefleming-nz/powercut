@@ -1,16 +1,16 @@
 <ion-content>
-  <ng-container *ngIf="showAddIncidentPopup$ | async as showAddIncidentPopup">
+  <ng-container *ngIf="activePopup$ | async as activePopup">
     <div class="container" *ngIf="incidents$ | async as incidents">
       <div class="map-container">
         <app-map
           [incidents]="incidents"
-          [allowMarkerClick]="showAddIncidentPopup === 'false'"
+          [allowMarkerClick]="activePopup === 'false'"
           (incidentClicked)="onIncidentClicked($event)"
           (mapClicked)="onMapClicked()"
           (deleteAllIncidentsRequested)="onDeleteAllIncidentsRequested(incidents)"
         ></app-map>
         <app-floating-buttons
-          [enableAddDelete]="showAddIncidentPopup === 'false'"
+          [enableAddDelete]="activePopup === 'false'"
           [displayGeolocation]="geolocationAvailable"
           (addIncidentClicked)="onAddIncidentClicked($event)"
           (geolocationClicked)="onGeolocationClicked()"

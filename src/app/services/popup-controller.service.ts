@@ -6,12 +6,23 @@ import {
   EmbeddedViewRef,
   ComponentRef,
 } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 }) // TODO rename/relocate
 export class PopupController {
-  activeComponentRef: ComponentRef<unknown> = null;
+  private _activeComponentRef = null;
+  private get activeComponentRef() {
+    return this._activeComponentRef;
+  }
+  private set activeComponentRef(value: ComponentRef<unknown>) {
+    this._activeComponentRef = value;
+    this.activePopupSubject.next(!!value);
+  }
+
+  private activePopupSubject = new BehaviorSubject<boolean>(false);
+  activePopup$ = this.activePopupSubject.asObservable();
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,

@@ -35,6 +35,10 @@ export class HomePage {
     )
   );
 
+  activePopup$ = this.popupController.activePopup$.pipe(
+    map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
+  );
+
   get geolocationAvailable() {
     return this.geolocationService.geolocationAvailable();
   }
