@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../directives/directives.module';
 import { AddIncidentPopupComponent } from './add-incident-popup/add-incident-popup.component';
 import { NonModalDialogComponent } from './non-modal-dialog/non-modal-dialog.component';
+import { ViewIncidentDialogComponent } from './view-incident-dialog/view-incident-dialog.component';
 
 const components = [
   FloatingButtonsComponent,
   IncidentPopupComponent,
   AddIncidentPopupComponent,
+  ViewIncidentDialogComponent,
   MapComponent,
   NonModalDialogComponent,
 ];

@@ -12,6 +12,7 @@ import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
 import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
 import { AddIncidentPopupComponent } from 'src/app/components/add-incident-popup/add-incident-popup.component';
+import { ViewIncidentDialogComponent } from 'src/app/components/view-incident-dialog/view-incident-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -79,15 +80,9 @@ export class HomePage {
   }
 
   onIncidentClicked(incident: IncidentViewModel) {
-    this.activeIncidentId = incident.id;
-  }
-
-  async onActivePopupDeleteClicked(id: string) {
-    await this.fireStoreService.deleteIncident(id);
-  }
-
-  onActivePopupCloseClicked() {
-    this.clearActiveIncident();
+    this.nonModalDialogController.create({
+      component: ViewIncidentDialogComponent,
+    });
   }
 
   clearActiveIncident() {

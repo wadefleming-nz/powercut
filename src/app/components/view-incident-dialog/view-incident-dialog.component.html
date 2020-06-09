@@ -1,0 +1,9 @@
+<app-incident-popup
+  [editable]="false"
+  [reportedAtDateTime]="reportedAtDateTime"
+  [status]="status"
+  leftButtonLabel="Delete"
+  rightButtonLabel="Close"
+  (leftButtonClicked)="onActivePopupDeleteClicked()"
+  (rightButtonClicked)="onActivePopupCloseClicked()"
+></app-incident-popup>

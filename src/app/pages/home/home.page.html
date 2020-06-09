@@ -17,18 +17,6 @@
         ></app-floating-buttons>
       </div>
       <app-non-modal-dialog></app-non-modal-dialog>
-      <div class="incident-container">
-        <app-incident-popup
-          *ngIf="activeIncident$ | async as activeIncident"
-          [editable]="false"
-          [reportedAtDateTime]="activeIncident.reportedAt"
-          [status]="activeIncident.status"
-          leftButtonLabel="Delete"
-          rightButtonLabel="Close"
-          (leftButtonClicked)="onActivePopupDeleteClicked(activeIncident.id)"
-          (rightButtonClicked)="onActivePopupCloseClicked()"
-        ></app-incident-popup>
-      </div>
     </div>
   </ng-container>
 </ion-content>
