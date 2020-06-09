@@ -16,6 +16,7 @@
           (geolocationClicked)="onGeolocationClicked()"
         ></app-floating-buttons>
       </div>
+      <app-non-modal-dialog></app-non-modal-dialog>
       <div class="incident-container">
         <app-incident-popup
           *ngIf="activeIncident$ | async as activeIncident"

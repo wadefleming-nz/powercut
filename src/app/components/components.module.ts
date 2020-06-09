@@ -8,12 +8,14 @@ import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../directives/directives.module';
 import { AddIncidentPopupComponent } from './add-incident-popup/add-incident-popup.component';
+import { NonModalDialogComponent } from './non-modal-dialog/non-modal-dialog.component';
 
 const components = [
   FloatingButtonsComponent,
   IncidentPopupComponent,
   AddIncidentPopupComponent,
   MapComponent,
+  NonModalDialogComponent,
 ];
 
 @NgModule({
