@@ -10,7 +10,7 @@ import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { PowerStatus } from 'src/app/types/power-status';
 import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
-import { PopupController } from 'src/app/services/popup-controller.service';
+import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
 import { AddIncidentPopupComponent } from 'src/app/components/add-incident-popup/add-incident-popup.component';
 
 @Component({
@@ -35,7 +35,7 @@ export class HomePage {
     )
   );
 
-  activePopup$ = this.popupController.activePopup$.pipe(
+  activePopup$ = this.nonModalDialogController.activePopup$.pipe(
     map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
   );
 
@@ -53,7 +53,7 @@ export class HomePage {
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
     private incidentColorizer: IncidentColorizerService,
-    private popupController: PopupController
+    private nonModalDialogController: NonModalDialogController
   ) {
     this.incidents$ = this.fireStoreService
       .getRecentIncidents()
@@ -107,7 +107,7 @@ export class HomePage {
     this.clearActiveIncident();
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
-    this.popupController.create({
+    this.nonModalDialogController.create({
       component: AddIncidentPopupComponent,
     });
   }

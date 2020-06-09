@@ -10,8 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
-}) // TODO rename/relocate
-export class PopupController {
+}) // TODO relocate
+export class NonModalDialogController {
   private _activeComponentRef = null;
   private get activeComponentRef() {
     return this._activeComponentRef;
