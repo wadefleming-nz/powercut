@@ -4,10 +4,10 @@ import * as incidentConstants from '../../constants/incident-constants';
 
 @Component({
   selector: 'app-incident-dialog',
-  templateUrl: './incident-popup.component.html',
-  styleUrls: ['./incident-popup.component.scss'],
+  templateUrl: './incident-dialog.component.html',
+  styleUrls: ['./incident-dialog.component.scss'],
 })
-export class IncidentPopupComponent {
+export class IncidentDialogComponent {
   @Input()
   editable: boolean;
 

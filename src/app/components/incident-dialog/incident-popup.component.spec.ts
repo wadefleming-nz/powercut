@@ -1,19 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { IncidentDialogComponent } from './incident-dialog.component';
 
-import { IncidentPopupComponent } from './incident-popup.component';
-
-describe('IncidentPopupComponent', () => {
-  let component: IncidentPopupComponent;
-  let fixture: ComponentFixture<IncidentPopupComponent>;
+describe('IncidentDialogComponent', () => {
+  let component: IncidentDialogComponent;
+  let fixture: ComponentFixture<IncidentDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IncidentPopupComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [IncidentDialogComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(IncidentPopupComponent);
+    fixture = TestBed.createComponent(IncidentDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

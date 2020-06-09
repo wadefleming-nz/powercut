@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FloatingButtonsComponent } from './floating-buttons/floating-buttons.component';
-import { IncidentPopupComponent } from './incident-popup/incident-popup.component';
+import { IncidentDialogComponent } from './incident-dialog/incident-dialog.component';
 import { MapComponent } from './map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../environments/environment';
@@ -13,7 +13,7 @@ import { ViewIncidentDialogComponent } from './view-incident-dialog/view-inciden
 
 const components = [
   FloatingButtonsComponent,
-  IncidentPopupComponent,
+  IncidentDialogComponent,
   AddIncidentDialogComponent,
   ViewIncidentDialogComponent,
   MapComponent,
