@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { PowerStatus } from 'src/app/types/power-status';
@@ -10,7 +10,7 @@ import { NonModalDialogController } from 'src/app/services/non-modal-dialog-cont
   templateUrl: './add-incident-dialog.component.html',
   styleUrls: ['./add-incident-dialog.component.scss'],
 })
-export class AddIncidentDialogComponent implements OnInit {
+export class AddIncidentDialogComponent {
   @Input()
   status: PowerStatus;
 
@@ -33,9 +33,7 @@ export class AddIncidentDialogComponent implements OnInit {
     private fireStoreService: FirestoreService
   ) {}
 
-  ngOnInit() {}
-
-  async onAddPopupAddClicked() {
+  async onAddClicked() {
     await this.presentIncidentAddedModal();
     await this.fireStoreService.createIncident({
       status: this.status,
@@ -48,11 +46,11 @@ export class AddIncidentDialogComponent implements OnInit {
     this.nonModalDialogController.dismiss();
   }
 
-  onAddPopupCancelClicked() {
+  onCancelClicked() {
     this.nonModalDialogController.dismiss();
   }
 
-  async presentIncidentAddedModal() {
+  private async presentIncidentAddedModal() {
     const modal = await this.modalController.create({
       component: IncidentAddedPage,
       swipeToClose: true,
