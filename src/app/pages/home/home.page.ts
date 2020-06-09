@@ -35,7 +35,7 @@ export class HomePage {
     )
   );
 
-  activePopup$ = this.nonModalDialogController.activePopup$.pipe(
+  dialogShowing$ = this.nonModalDialogController.active$.pipe(
     map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
   );
 

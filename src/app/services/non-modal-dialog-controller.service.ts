@@ -18,11 +18,11 @@ export class NonModalDialogController {
   }
   private set activeComponentRef(value: ComponentRef<unknown>) {
     this._activeComponentRef = value;
-    this.activePopupSubject.next(!!value);
+    this.activeSubject.next(!!value);
   }
 
-  private activePopupSubject = new BehaviorSubject<boolean>(false);
-  activePopup$ = this.activePopupSubject.asObservable();
+  private activeSubject = new BehaviorSubject<boolean>(false);
+  active$ = this.activeSubject.asObservable();
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
