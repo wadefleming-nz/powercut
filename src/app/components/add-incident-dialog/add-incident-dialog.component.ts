@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { PowerStatus } from 'src/app/types/power-status';
 import { IncidentAddedPage } from 'src/app/pages/incident-added/incident-added.page';
-import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
+import { NonModalController } from 'src/app/services/non-modal-controller.service';
 
 @Component({
   selector: 'app-add-incident-dialog',
@@ -28,7 +28,7 @@ export class AddIncidentDialogComponent {
   incidentAdded = new EventEmitter();
 
   constructor(
-    private nonModalDialogController: NonModalDialogController,
+    private nonModalController: NonModalController,
     private modalController: ModalController,
     private fireStoreService: FirestoreService
   ) {}
@@ -43,11 +43,11 @@ export class AddIncidentDialogComponent {
     });
 
     this.incidentAdded.emit();
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
   }
 
   onCancelClicked() {
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
   }
 
   private async presentIncidentAddedModal() {

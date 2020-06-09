@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
+import { NonModalController } from 'src/app/services/non-modal-controller.service';
 import { PowerStatus } from 'src/app/types/power-status';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -20,16 +20,16 @@ export class ViewIncidentDialogComponent {
   reportedAtDateTime: string;
 
   constructor(
-    private nonModalDialogController: NonModalDialogController,
+    private nonModalController: NonModalController,
     private fireStoreService: FirestoreService
   ) {}
 
   async onDeleteClicked() {
     await this.fireStoreService.deleteIncident(this.incidentId);
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
   }
 
   onCloseClicked() {
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
   }
 }

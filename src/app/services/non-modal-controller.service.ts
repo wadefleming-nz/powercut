@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 }) // TODO relocate
-export class NonModalDialogController {
+export class NonModalController {
   private _activeComponentRef = null;
   private get activeComponentRef() {
     return this._activeComponentRef;

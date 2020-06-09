@@ -10,7 +10,7 @@ import { IncidentViewModel } from 'src/app/models/incident-view-model';
 import { PowerStatus } from 'src/app/types/power-status';
 import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
-import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
+import { NonModalController } from 'src/app/services/non-modal-controller.service';
 import { AddIncidentDialogComponent } from 'src/app/components/add-incident-dialog/add-incident-dialog.component';
 import { ViewIncidentDialogComponent } from 'src/app/components/view-incident-dialog/view-incident-dialog.component';
 
@@ -27,7 +27,7 @@ export class HomePage {
 
   incidents$ = new Observable<IncidentViewModel[]>();
 
-  dialogShowing$ = this.nonModalDialogController.active$.pipe(
+  dialogShowing$ = this.nonModalController.active$.pipe(
     map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
   );
 
@@ -41,7 +41,7 @@ export class HomePage {
     private fireStoreService: FirestoreService,
     private geolocationService: GeolocationService,
     private incidentColorizer: IncidentColorizerService,
-    private nonModalDialogController: NonModalDialogController
+    private nonModalController: NonModalController
   ) {
     this.incidents$ = this.fireStoreService
       .getRecentIncidents()
@@ -63,17 +63,17 @@ export class HomePage {
   }
 
   onMapClicked() {
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
   }
 
   onIncidentClicked(incident: IncidentViewModel) {
-    this.nonModalDialogController.create({
+    this.nonModalController.create({
       component: ViewIncidentDialogComponent,
     });
   }
 
   async deleteAllIncidents(incidents: IncidentViewModel[]) {
-    this.nonModalDialogController.dismiss();
+    this.nonModalController.dismiss();
 
     const deletions = incidents.map((incident) =>
       this.fireStoreService.deleteIncident(incident.id)
@@ -84,7 +84,7 @@ export class HomePage {
   async onAddIncidentClicked(status: PowerStatus) {
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
-    this.nonModalDialogController.create({
+    this.nonModalController.create({
       component: AddIncidentDialogComponent,
     });
   }
