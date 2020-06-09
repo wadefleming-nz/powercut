@@ -11,7 +11,7 @@ import { PowerStatus } from 'src/app/types/power-status';
 import { MapComponent } from '../../components/map/map.component';
 import { IncidentColorizerService } from 'src/app/services/incident-colorizer.service';
 import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
-import { AddIncidentPopupComponent } from 'src/app/components/add-incident-popup/add-incident-popup.component';
+import { AddIncidentDialogComponent } from 'src/app/components/add-incident-dialog/add-incident-dialog.component';
 import { ViewIncidentDialogComponent } from 'src/app/components/view-incident-dialog/view-incident-dialog.component';
 
 @Component({
@@ -85,7 +85,7 @@ export class HomePage {
     this.newIncidentDateTime = new Date().toISOString();
     this.newIncidentStatus = status;
     this.nonModalDialogController.create({
-      component: AddIncidentPopupComponent,
+      component: AddIncidentDialogComponent,
     });
   }
 

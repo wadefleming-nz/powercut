@@ -7,14 +7,14 @@ import { AgmCoreModule } from '@agm/core';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { DirectivesModule } from '../directives/directives.module';
-import { AddIncidentPopupComponent } from './add-incident-popup/add-incident-popup.component';
+import { AddIncidentDialogComponent } from './add-incident-dialog/add-incident-dialog.component';
 import { NonModalDialogComponent } from './non-modal-dialog/non-modal-dialog.component';
 import { ViewIncidentDialogComponent } from './view-incident-dialog/view-incident-dialog.component';
 
 const components = [
   FloatingButtonsComponent,
   IncidentPopupComponent,
-  AddIncidentPopupComponent,
+  AddIncidentDialogComponent,
   ViewIncidentDialogComponent,
   MapComponent,
   NonModalDialogComponent,

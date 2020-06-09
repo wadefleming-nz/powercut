@@ -6,11 +6,11 @@ import { IncidentAddedPage } from 'src/app/pages/incident-added/incident-added.p
 import { NonModalDialogController } from 'src/app/services/non-modal-dialog-controller.service';
 
 @Component({
-  selector: 'app-add-incident-popup',
-  templateUrl: './add-incident-popup.component.html',
-  styleUrls: ['./add-incident-popup.component.scss'],
+  selector: 'app-add-incident-dialog',
+  templateUrl: './add-incident-dialog.component.html',
+  styleUrls: ['./add-incident-dialog.component.scss'],
 })
-export class AddIncidentPopupComponent implements OnInit {
+export class AddIncidentDialogComponent implements OnInit {
   @Input()
   status: PowerStatus;
 

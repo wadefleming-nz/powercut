@@ -3,7 +3,7 @@ import { PowerStatus } from 'src/app/types/power-status';
 import * as incidentConstants from '../../constants/incident-constants';
 
 @Component({
-  selector: 'app-incident-popup',
+  selector: 'app-incident-dialog',
   templateUrl: './incident-popup.component.html',
   styleUrls: ['./incident-popup.component.scss'],
 })
