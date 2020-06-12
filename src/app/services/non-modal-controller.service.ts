@@ -22,13 +22,14 @@ export class NonModalController {
   constructor(private domManipulator: DomManipulator) {}
 
   create(options: NonModalOptions) {
-    this.activeComponentRef = this.domManipulator.appendComponentToBody(
-      options
+    this.activeComponentRef = this.domManipulator.appendComponentToElement(
+      options,
+      'non-modal-dialog-container'
     );
   }
 
   dismiss() {
-    this.domManipulator.removeComponentFromBody(this.activeComponentRef);
+    this.domManipulator.removeComponent(this.activeComponentRef);
     this.activeComponentRef = null;
   }
 }

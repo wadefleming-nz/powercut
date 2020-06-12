@@ -18,40 +18,50 @@ export class DomManipulator {
     private injector: Injector
   ) {}
 
-  appendComponentToBody(options: NonModalOptions) {
+  appendComponentToElement(options: NonModalOptions, elementId: string) {
     const { component, inputs } = { ...options };
-    // Create a component reference from the component
-    const componentRef = this.componentFactoryResolver
-      .resolveComponentFactory(component)
-      .create(this.injector);
 
+    const componentRef = this.createComponentReference(component);
     if (inputs) {
       Object.assign(componentRef.instance, inputs);
     }
 
-    // Attach component to the appRef so that it's inside the ng component tree
     this.appRef.attachView(componentRef.hostView);
-
-    // Get DOM element from component
-    const domElem = (componentRef.hostView as EmbeddedViewRef<any>)
-      .rootNodes[0] as HTMLElement;
-
-    // Get dialog element
-    const dialogElement = document.getElementById('non-modal-dialog-container');
-    if (!dialogElement) {
-      throw new Error(
-        'Ensure your layout contains an <app-non-modal-dialog> element'
-      );
-    }
-
-    // Append DOM element to the body
-    dialogElement.appendChild(domElem);
+    this.appendComponent(componentRef, elementId);
 
     return componentRef;
   }
 
-  removeComponentFromBody(componentRef: ComponentRef<unknown>) {
-    // remove it from the component tree and from the DOM
+  private createComponentReference(component: any) {
+    return this.componentFactoryResolver
+      .resolveComponentFactory(component)
+      .create(this.injector);
+  }
+
+  private appendComponent(
+    componentRef: ComponentRef<unknown>,
+    elementId: string
+  ) {
+    const componentElement = this.getDomElementFromComponent(componentRef);
+    const targetElement = this.getTargetElement(elementId);
+    targetElement.appendChild(componentElement);
+  }
+
+  private getDomElementFromComponent(componentRef: ComponentRef<unknown>) {
+    return (componentRef.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+  }
+
+  private getTargetElement(elementId: string) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+      throw new Error(`Ensure your layout contains an <${elementId}> element`);
+    }
+
+    return element;
+  }
+
+  removeComponent(componentRef: ComponentRef<unknown>) {
     this.appRef.detachView(componentRef.hostView);
     componentRef.destroy();
   }
