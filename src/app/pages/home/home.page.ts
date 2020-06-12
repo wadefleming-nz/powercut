@@ -66,6 +66,7 @@ export class HomePage {
   onIncidentClicked(incident: IncidentViewModel) {
     this.nonModalController.create({
       component: ViewIncidentDialogComponent,
+      inputs: { incident },
     });
   }
 

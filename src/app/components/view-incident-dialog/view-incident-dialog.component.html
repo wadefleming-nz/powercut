@@ -1,7 +1,7 @@
 <app-incident-dialog
   [editable]="false"
-  [reportedAtDateTime]="reportedAtDateTime"
-  [status]="status"
+  [reportedAtDateTime]="incident.reportedAt"
+  [status]="incident.status"
   leftButtonLabel="Delete"
   rightButtonLabel="Close"
   (leftButtonClicked)="onDeleteClicked()"

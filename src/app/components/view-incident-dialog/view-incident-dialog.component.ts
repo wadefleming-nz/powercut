@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NonModalController } from 'src/app/services/non-modal-controller.service';
-import { PowerStatus } from 'src/app/types/power-status';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { IncidentViewModel } from 'src/app/models/incident-view-model';
 
 @Component({
   selector: 'app-view-incident-dialog',
@@ -9,15 +9,8 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./view-incident-dialog.component.scss'],
 })
 export class ViewIncidentDialogComponent {
-  // TODO: pass entire incident?
   @Input()
-  incidentId: string;
-
-  @Input()
-  status: PowerStatus;
-
-  @Input()
-  reportedAtDateTime: string;
+  incident: IncidentViewModel;
 
   constructor(
     private nonModalController: NonModalController,
@@ -25,7 +18,7 @@ export class ViewIncidentDialogComponent {
   ) {}
 
   async onDeleteClicked() {
-    await this.fireStoreService.deleteIncident(this.incidentId);
+    await this.fireStoreService.deleteIncident(this.incident.id);
     this.nonModalController.dismiss();
   }
 
