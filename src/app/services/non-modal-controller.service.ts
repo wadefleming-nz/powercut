@@ -2,6 +2,7 @@ import { Injectable, ComponentRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NonModalOptions } from '../models/non-modal-options';
 import { DomManipulator } from './dom-manipulator.service';
+import { ComponentCreator } from './component-creator.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +20,15 @@ export class NonModalController {
   private activeSubject = new BehaviorSubject<boolean>(false);
   active$ = this.activeSubject.asObservable();
 
-  constructor(private domManipulator: DomManipulator) {}
+  constructor(
+    private componentCreator: ComponentCreator,
+    private domManipulator: DomManipulator
+  ) {}
 
   create(options: NonModalOptions) {
-    this.activeComponentRef = this.domManipulator.appendComponentToElement(
-      options,
+    this.activeComponentRef = this.componentCreator.create(options);
+    this.domManipulator.appendComponentToElement(
+      this.activeComponentRef,
       'non-modal-dialog-container'
     );
   }
