@@ -7,10 +7,11 @@ import {
   ComponentRef,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NonModalOptions } from '../models/non-modal-options';
 
 @Injectable({
   providedIn: 'root',
-}) // TODO relocate
+})
 export class NonModalController {
   private _activeComponentRef = null;
   private get activeComponentRef() {
@@ -30,14 +31,8 @@ export class NonModalController {
     private injector: Injector
   ) {}
 
-  create(options: {
-    component: any /*ComponentRef*/;
-    inputs?: { [key: string]: any }; // todo use interface for options
-  }) {
-    this.activeComponentRef = this.appendComponentToBody(
-      options.component,
-      options.inputs
-    );
+  create(options: NonModalOptions) {
+    this.activeComponentRef = this.appendComponentToBody(options);
   }
 
   dismiss() {
@@ -45,10 +40,8 @@ export class NonModalController {
     this.activeComponentRef = null;
   }
 
-  private appendComponentToBody(
-    component: any,
-    inputs?: { [key: string]: any }
-  ) {
+  private appendComponentToBody(options: NonModalOptions) {
+    const { component, inputs } = { ...options };
     // Create a component reference from the component
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
