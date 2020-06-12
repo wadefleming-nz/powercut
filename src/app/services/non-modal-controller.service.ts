@@ -30,8 +30,14 @@ export class NonModalController {
     private injector: Injector
   ) {}
 
-  create(options: { component: any /*ComponentRef*/ }) {
-    this.activeComponentRef = this.appendComponentToBody(options.component);
+  create(options: {
+    component: any /*ComponentRef*/;
+    inputs?: { [key: string]: any }; // todo use interface for options
+  }) {
+    this.activeComponentRef = this.appendComponentToBody(
+      options.component,
+      options.inputs
+    );
   }
 
   dismiss() {
@@ -39,11 +45,18 @@ export class NonModalController {
     this.activeComponentRef = null;
   }
 
-  private appendComponentToBody(component: any) {
+  private appendComponentToBody(
+    component: any,
+    inputs?: { [key: string]: any }
+  ) {
     // Create a component reference from the component
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
       .create(this.injector);
+
+    if (inputs) {
+      Object.assign(componentRef.instance, inputs);
+    }
 
     // Attach component to the appRef so that it's inside the ng component tree
     this.appRef.attachView(componentRef.hostView);

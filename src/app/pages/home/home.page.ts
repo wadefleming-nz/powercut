@@ -22,9 +22,6 @@ import { ViewIncidentDialogComponent } from 'src/app/components/view-incident-di
 export class HomePage {
   geolocateZoom = 18;
 
-  newIncidentDateTime: string;
-  newIncidentStatus: PowerStatus;
-
   incidents$ = new Observable<IncidentViewModel[]>();
 
   dialogShowing$ = this.nonModalController.active$.pipe(
@@ -82,10 +79,9 @@ export class HomePage {
   }
 
   async onAddIncidentClicked(status: PowerStatus) {
-    this.newIncidentDateTime = new Date().toISOString();
-    this.newIncidentStatus = status;
     this.nonModalController.create({
       component: AddIncidentDialogComponent,
+      inputs: { status, reportedAtDateTime: new Date().toISOString() },
     });
   }
 
