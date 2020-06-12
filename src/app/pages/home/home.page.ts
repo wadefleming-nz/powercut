@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { FirestoreService } from '../../services/firestore.service';
-import { Observable } from 'rxjs';
 import { Incident } from '../../models/incident';
 import { GeolocationService } from '../../services/geolocation.service';
 import { map } from 'rxjs/operators';
@@ -22,7 +21,13 @@ import { ViewIncidentDialogComponent } from 'src/app/components/view-incident-di
 export class HomePage {
   geolocateZoom = 18;
 
-  incidents$ = new Observable<IncidentViewModel[]>();
+  incidents$ = this.fireStoreService
+    .getRecentIncidents()
+    .pipe(
+      map((incidents) =>
+        _.map(incidents, (incident) => this.createIncidentViewModel(incident))
+      )
+    );
 
   dialogShowing$ = this.nonModalController.active$.pipe(
     map((active) => (active ? 'true' : 'false')) // for compatibility with *ngIf/async
@@ -39,15 +44,7 @@ export class HomePage {
     private geolocationService: GeolocationService,
     private incidentColorizer: IncidentColorizerService,
     private nonModalController: NonModalController
-  ) {
-    this.incidents$ = this.fireStoreService
-      .getRecentIncidents()
-      .pipe(
-        map((incidents) =>
-          _.map(incidents, (incident) => this.createIncidentViewModel(incident))
-        )
-      );
-  }
+  ) {}
 
   createIncidentViewModel(incident: Incident): IncidentViewModel {
     const age = moment().diff(moment(incident.reportedAt), 'minutes'); // TODO change to hours or something else
