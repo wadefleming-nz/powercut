@@ -52,10 +52,6 @@ export class HomePage {
     return { ...incident, age, iconFillColor };
   }
 
-  async onDeleteAllIncidentsRequested(incidents: IncidentViewModel[]) {
-    await this.deleteAllIncidents(incidents);
-  }
-
   onMapClicked() {
     this.nonModalController.dismiss();
   }
@@ -67,15 +63,6 @@ export class HomePage {
     });
   }
 
-  async deleteAllIncidents(incidents: IncidentViewModel[]) {
-    this.nonModalController.dismiss();
-
-    const deletions = incidents.map((incident) =>
-      this.fireStoreService.deleteIncident(incident.id)
-    );
-    await Promise.all(deletions);
-  }
-
   async onAddIncidentClicked(status: PowerStatus) {
     this.nonModalController.create({
       component: AddIncidentDialogComponent,
@@ -85,6 +72,19 @@ export class HomePage {
 
   onIncidentAdded() {
     this.mapComponent.centerIndicatorVisible = false;
+  }
+
+  async onDeleteAllIncidentsRequested(incidents: IncidentViewModel[]) {
+    await this.deleteAllIncidents(incidents);
+  }
+
+  async deleteAllIncidents(incidents: IncidentViewModel[]) {
+    this.nonModalController.dismiss();
+
+    const deletions = incidents.map((incident) =>
+      this.fireStoreService.deleteIncident(incident.id)
+    );
+    await Promise.all(deletions);
   }
 
   async onGeolocationClicked() {
